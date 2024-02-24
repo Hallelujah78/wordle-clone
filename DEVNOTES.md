@@ -28,10 +28,11 @@
   - I've chosen to use the 2309 words that have been used as game answers so far
 - local storage to persist through refreshes/navigation away from the page
 - state: current game answer, the current guess index, letters used, previous guesses, whether a letter has been guessed, whether a letter is in the correct position, whether a letter is in the incorrect position
+- a killer name. I thought Wurdil and then googled to see if it meant anything. Wur Dil means "The Heart" in Urdu, so that's cool. Wurdil in Western Frisian means "Word." Wurdil Wedstriid - literally word game
 
 ---
 
-## NYT World: How it works
+## NYT Wordle: How it works
 
 - 6 chances to guess a 5-letter word
 - the Wordle play area:
@@ -47,3 +48,4 @@
   - but in the right place are green
 - to submit a guess, the guess must be in the word list
 - keys that are not A-Z, enter or delete are ignored
+- warn on submit if not enough letters
