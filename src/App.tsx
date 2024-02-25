@@ -3,66 +3,104 @@ import styled from "styled-components";
 import { getRandomArbitrary } from "./utils/utils";
 import { words } from "./data/data.ts";
 
-type WurdilGuess = string[];
+type WurdilGuess = [string, string, string, string, string];
+type Guesses = [
+  WurdilGuess,
+  WurdilGuess,
+  WurdilGuess,
+  WurdilGuess,
+  WurdilGuess,
+  WurdilGuess
+];
+
+const initialGuessState: Guesses = [
+  ["", "", "", "", ""],
+  ["", "", "", "", ""],
+  ["", "", "", "", ""],
+  ["", "", "", "", ""],
+  ["", "", "", "", ""],
+  ["", "", "", "", ""],
+];
 
 const App: React.FC = () => {
-  const [guesses, setGuesses] = useState<
-    [
-      WurdilGuess,
-      WurdilGuess,
-      WurdilGuess,
-      WurdilGuess,
-      WurdilGuess,
-      WurdilGuess
-    ]
-  >([
-    ["", "", "", "", ""],
-    ["", "", "", "", ""],
-    ["", "", "", "", ""],
-    ["", "", "", "", ""],
-    ["", "", "", "", ""],
-    ["", "", "", "", ""],
-  ]);
-  const [currentGuessIndex, setCurrentGuessIndex] = useState<number>(0);
+  const [guesses, setGuesses] = useState<Guesses>(initialGuessState);
+  const [currentGuessIndex, _setCurrentGuessIndex] = useState<number>(0);
   const [currentLetterIndex, setCurrentLetterIndex] = useState<number>(0);
   const [answer, setAnswer] = useState<string>("");
 
-  const enterKeyHandler = () => {
+  const enterKeyHandler = useCallback(() => {
     // is guess a valid word?
     // then
-  };
-  const deleteKeyHandler = () => {};
-  const alphaKeypressHandler = useCallback(() => {
-    // a key is pressed
-    // under certain circumstances we do nothing
-    // positionBlankLetter is between 0-4 inclusive and the key is a-z
-    // then set value of the appropriate span to that letter and increment positionBlankLetter
-    console.log(currentLetterIndex);
-    console.log(guesses[0]);
+  }, []);
 
-    setGuesses((prev) => {
-      prev[currentGuessIndex][currentLetterIndex] = "A";
-      return prev;
-    });
-    setCurrentLetterIndex((prev) => {
-      if (prev < 4) {
-        prev = prev + 1;
+  const deleteKeyHandler = useCallback(
+    (event: KeyboardEvent) => {
+      if (event.key === "Backspace" && currentLetterIndex > 0) {
+        if (
+          guesses[currentGuessIndex][currentLetterIndex].length === 1 &&
+          currentLetterIndex === 4
+        ) {
+          setGuesses((prev) => {
+            const newState = JSON.parse(JSON.stringify(prev));
+            newState[currentGuessIndex][currentLetterIndex] = "";
+            return newState;
+          });
+        } else {
+          setGuesses((prev) => {
+            const newState = JSON.parse(JSON.stringify(prev));
+            newState[currentGuessIndex][currentLetterIndex - 1] = "";
+            return newState;
+          });
+          setCurrentLetterIndex((prev) => prev - 1);
+        }
       }
-      return prev;
-    });
-  }, [currentGuessIndex, currentLetterIndex, guesses]);
+    },
+    [currentGuessIndex, currentLetterIndex, guesses]
+  );
+
+  const alphaKeypressHandler = useCallback(
+    (event: KeyboardEvent) => {
+      const keyRegex = new RegExp(/[a-z]/i);
+      if (
+        guesses[currentGuessIndex][currentLetterIndex].length === 0 &&
+        event.key.length === 1 &&
+        keyRegex.test(event.key)
+      ) {
+        setGuesses((prev) => {
+          const newState = JSON.parse(JSON.stringify(prev));
+          newState[currentGuessIndex][currentLetterIndex] =
+            event.key.toUpperCase();
+          return newState;
+        });
+        setCurrentLetterIndex((prev) => {
+          if (prev < 4) {
+            prev = prev + 1;
+          }
+          return prev;
+        });
+      }
+    },
+    [currentGuessIndex, currentLetterIndex, guesses]
+  );
 
   const startGame = () => {
+    setGuesses(initialGuessState);
+    _setCurrentGuessIndex(0);
+    setCurrentLetterIndex(0);
     setAnswer(words[getRandomArbitrary(0, words.length - 1)]);
   };
 
   useEffect(() => {
-    document.addEventListener("keyup", alphaKeypressHandler);
+    document.addEventListener("keydown", alphaKeypressHandler);
+    document.addEventListener("keydown", deleteKeyHandler);
+    document.addEventListener("keydown", enterKeyHandler);
 
     return () => {
-      document.removeEventListener("keyup", alphaKeypressHandler);
+      document.removeEventListener("keydown", alphaKeypressHandler);
+      document.removeEventListener("keydown", deleteKeyHandler);
+      document.removeEventListener("keydown", enterKeyHandler);
     };
-  }, [alphaKeypressHandler]);
+  }, [alphaKeypressHandler, deleteKeyHandler, enterKeyHandler]);
 
   return (
     <Wrapper>
@@ -71,7 +109,6 @@ const App: React.FC = () => {
         <button onClick={startGame}>New Game</button>
       </nav>
       <section>
-        <input type="text" />
         <div id="guess-0">
           <div className="letter" id="0">
             {guesses[0][0]}
@@ -89,13 +126,13 @@ const App: React.FC = () => {
             {guesses[0][4]}
           </div>
         </div>
-        {/* <div id="guess-1">
-          <span id="0"></span>
-          <span id="1"></span>
-          <span id="2"></span>
-          <span id="3"></span>
-          <span id="4"></span>
-        </div> */}
+        <div id="guess-1">
+          <div className="letter" id="0"></div>
+          <div className="letter" id="1"></div>
+          <div className="letter" id="2"></div>
+          <div className="letter" id="3"></div>
+          <div className="letter" id="4"></div>
+        </div>
       </section>
       <h3>{answer}</h3>
     </Wrapper>
@@ -119,6 +156,7 @@ const Wrapper = styled.div`
     font-size: 3rem;
   }
   section {
+    height: calc(100vh - 3rem);
     display: grid;
     place-content: center;
     max-width: 100%;
@@ -128,9 +166,9 @@ const Wrapper = styled.div`
     bottom: 5%;
     left: 48vw;
   }
-  guess-0 {
-    border: red solid 1px;
+  #guess-0 {
     display: inline-block;
+    height: auto;
   }
   .letter {
     display: inline-block;
@@ -139,5 +177,7 @@ const Wrapper = styled.div`
     width: 3rem;
     border: 1px solid gray;
     text-align: center;
+    vertical-align: top;
+    margin: 0.5rem;
   }
 `;

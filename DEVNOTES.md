@@ -29,6 +29,7 @@
 - local storage to persist through refreshes/navigation away from the page
 - state: current game answer, the current guess index, letters used, previous guesses, whether a letter has been guessed, whether a letter is in the correct position, whether a letter is in the incorrect position
 - a killer name. I thought Wurdil and then googled to see if it meant anything. Wur Dil means "The Heart" in Urdu, so that's cool. Wurdil in Western Frisian means "Word." Wurdil Wedstriid - literally word game
+  - based on the code I've written so far I may call it "Wordle - Dumpster Fire Editon" :smiley:
 
 ---
 
