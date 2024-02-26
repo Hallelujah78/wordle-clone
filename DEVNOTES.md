@@ -23,9 +23,12 @@
 - first we need the [words](https://dagshub.com/arjvik/wordle-wordlist/src/master/answerlist.txt "text file of Wordle answers on github ")
   - there are 12,947 allowed answers
   - there are about 2,309 game answers so far
-  - the allowed answers are obscure:
+  - many allowed answers are obscure:
     - words such as abrin, abris, absey, absit, abuna, abune will be accepted as valid guesses
   - I've chosen to use the 2309 words that have been used as game answers so far
+    - there is a problem with the 2309 word list
+      - common words are flagged as not valid answers
+      - could check word frequency in some body of english text
 - local storage to persist through refreshes/navigation away from the page
 - state: current game answer, the current guess index, letters used, previous guesses, whether a letter has been guessed, whether a letter is in the correct position, whether a letter is in the incorrect position
 - a killer name. I thought Wurdil and then googled to see if it meant anything. Wur Dil means "The Heart" in Urdu, so that's cool. Wurdil in Western Frisian means "Word." Wurdil Wedstriid - literally word game
@@ -50,3 +53,141 @@
 - to submit a guess, the guess must be in the word list
 - keys that are not A-Z, enter or delete are ignored
 - warn on submit if not enough letters
+
+### Hitting Enter (submitting a guess)
+
+- if the guess is correct
+
+  - set game to over
+  - set the background color of the guess to green
+  - set the background color of the corresponding keyboard letters to green
+  - congratulate the user
+
+- else if the guess is not a word
+
+  - notify user, do nothing else?
+
+- else the guess is a valid possible answer
+  - if this was your final (6th) guess
+    - you lost, bad luck
+    - notify the user of the word
+    - set the game to be over
+      - the NYT surprisingly does this with a fairly plain tooltip type element
+  - else this is not your final guess
+    - increment guess index
+    - set letter index to 0
+
+### Coloring the letters
+
+- todays answer is 'OFTEN'
+- if we guess SOFTY
+  - S and Y are dark gray on the keyboard and in the guess squares
+  - F, T, and Y are yellow on the keyboard and in the guess squares
+- if we guess EATER
+  - E, A, and R are dark gray
+  - T and E are green
+- guessing SOFTY again (which you are allowed to do)
+
+  - the T and E on the keyboard remain green because we have them in the right positions in one of our answers (EATER)
+    - they don't revert to yellow based on our last answer which had no letters in the correct positions
+
+- inline, this works:
+
+```js
+ style={{background:
+ `${guesses[0][0] === answer.charAt(0) ? "green" : "white"}`,
+        }}
+```
+
+- animation:
+
+```js
+.spin{
+  animation:spin 2s linear;
+}
+
+@keyframes spin { 100% { transform:rotateX(360deg); } }
+```
+
+- this is better and can be adapted more easily: https://jsfiddle.net/wLLLsjLd/2/
+- modded it easily:
+
+```js
+body {
+    background: #ecf0f1;
+}
+ul {
+    width: 50%;
+    margin: 120px auto;
+}
+li {
+    width: 200px;
+    height: 200px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    float: left;
+    list-style: none;
+    position: relative;
+    cursor: pointer;
+    font-family:'Open Sans';
+    font-weight: 300;
+    -webkit-perspective: 1000;
+    -moz-perspective: 1000;
+    perspective: 1000;
+}
+div {
+    color: yellow;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+.front {
+    z-index: 3;
+    color: #fff;
+    text-align: center;
+    line-height: 210px;
+    font-size: 20px;
+    background: #e3e3e3;
+}
+li:hover > .front{
+    z-index: 0;
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    transform: rotateX(180deg);
+}
+li:hover > .back {
+    -webkit-transform: rotateX(0deg);
+    -moz-transform: rotateX(0deg);
+    transform: rotateX(0deg);
+}
+.back {
+    color: #fff;
+    text-align: center;
+    line-height: 200px;
+    font-size: 20px;
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+    transform: rotateX(180deg);
+    background: #34495e;
+}
+#box1 {
+    background: red;
+}
+
+
+<ul>
+    <li>
+        <div class="front" id="box1">This is a div to rotate.
+        </div>
+        <div class="back">This is the div rotated.</div>
+    </li>
+</ul>
+
+```

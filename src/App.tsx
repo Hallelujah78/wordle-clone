@@ -34,23 +34,31 @@ const App: React.FC = () => {
   const enterKeyHandler = useCallback(
     (event: KeyboardEvent) => {
       const guess = guesses[currentGuessIndex].join("");
+
       if (event.key === "Enter") {
         // is correct answer
         if (guess === answer && !isGameOver) {
+          ///***Logic to set background colors of hidden "back" tile
+          ///***Trigger the animation to flip tiles***
+          ///***Indicate which tiles are in correct position***
           setCurrentGuessIndex((prev) => (prev < 5 ? prev + 1 : prev));
           setIsGameOver(true);
           toast("congrats you won!");
+        } else if (!words.includes(guess)) {
+          toast("not a valid answer!");
         }
-
-        // is not correct answer
-        if (guess !== answer) {
-          if (words.includes(guess)) {
-            toast("bad luck!");
-            setCurrentGuessIndex((prev) => (prev < 5 ? prev + 1 : prev));
-            setCurrentLetterIndex(0);
-          } else {
-            toast("not a valid answer!");
-          }
+        // guess must be valid word but incorrect
+        else if (currentGuessIndex === 5) {
+          // that was your last guess
+          setIsGameOver(true);
+          toast(
+            `bad luck, you lose! The correct answer was ${answer.toUpperCase()}`
+          );
+        } else {
+          // you have more guesses left
+          toast("bad luck!");
+          setCurrentGuessIndex((prev) => prev + 1);
+          setCurrentLetterIndex(0);
         }
 
         // is guess a valid word?
@@ -139,7 +147,15 @@ const App: React.FC = () => {
         </nav>
         <section>
           <div id="guess-0">
-            <div className="letter" id="0">
+            <div
+              style={{
+                background: `${
+                  guesses[0][0] === answer.charAt(0) ? "green" : "white"
+                }`,
+              }}
+              className="letter"
+              id="0"
+            >
               {guesses[0][0].toUpperCase()}
             </div>
             <div className="letter" id="1">
