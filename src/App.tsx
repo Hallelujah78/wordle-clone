@@ -2,6 +2,8 @@ import { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import { getRandomArbitrary } from "./utils/utils";
 import { words } from "./data/data.ts";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 type WurdilGuess = [string, string, string, string, string];
 type Guesses = [
@@ -24,22 +26,47 @@ const initialGuessState: Guesses = [
 
 const App: React.FC = () => {
   const [guesses, setGuesses] = useState<Guesses>(initialGuessState);
-  const [currentGuessIndex, _setCurrentGuessIndex] = useState<number>(0);
+  const [currentGuessIndex, setCurrentGuessIndex] = useState<number>(0);
   const [currentLetterIndex, setCurrentLetterIndex] = useState<number>(0);
   const [answer, setAnswer] = useState<string>("");
+  const [isGameOver, setIsGameOver] = useState<boolean>(false);
 
-  const enterKeyHandler = useCallback(() => {
-    // is guess a valid word?
-    // then
-  }, []);
+  const enterKeyHandler = useCallback(
+    (event: KeyboardEvent) => {
+      const guess = guesses[currentGuessIndex].join("");
+      if (event.key === "Enter") {
+        // is correct answer
+        if (guess === answer && !isGameOver) {
+          setCurrentGuessIndex((prev) => (prev < 5 ? prev + 1 : prev));
+          setIsGameOver(true);
+          toast("congrats you won!");
+        }
+
+        // is not correct answer
+        if (guess !== answer) {
+          if (words.includes(guess)) {
+            toast("bad luck!");
+            setCurrentGuessIndex((prev) => (prev < 5 ? prev + 1 : prev));
+            setCurrentLetterIndex(0);
+          } else {
+            toast("not a valid answer!");
+          }
+        }
+
+        // is guess a valid word?
+        // then
+        // increment currentGuessIndex
+        // do letters in the guess appear in the answer?
+        //  - is letter in correct place: true/false
+      }
+    },
+    [currentGuessIndex, answer, guesses, isGameOver]
+  );
 
   const deleteKeyHandler = useCallback(
     (event: KeyboardEvent) => {
       if (event.key === "Backspace" && currentLetterIndex > 0) {
-        if (
-          guesses[currentGuessIndex][currentLetterIndex].length === 1 &&
-          currentLetterIndex === 4
-        ) {
+        if (guesses[currentGuessIndex][currentLetterIndex].length === 1) {
           setGuesses((prev) => {
             const newState = JSON.parse(JSON.stringify(prev));
             newState[currentGuessIndex][currentLetterIndex] = "";
@@ -68,8 +95,7 @@ const App: React.FC = () => {
       ) {
         setGuesses((prev) => {
           const newState = JSON.parse(JSON.stringify(prev));
-          newState[currentGuessIndex][currentLetterIndex] =
-            event.key.toUpperCase();
+          newState[currentGuessIndex][currentLetterIndex] = event.key;
           return newState;
         });
         setCurrentLetterIndex((prev) => {
@@ -85,8 +111,9 @@ const App: React.FC = () => {
 
   const startGame = () => {
     setGuesses(initialGuessState);
-    _setCurrentGuessIndex(0);
+    setCurrentGuessIndex(0);
     setCurrentLetterIndex(0);
+    setIsGameOver(false);
     setAnswer(words[getRandomArbitrary(0, words.length - 1)]);
   };
 
@@ -103,39 +130,52 @@ const App: React.FC = () => {
   }, [alphaKeypressHandler, deleteKeyHandler, enterKeyHandler]);
 
   return (
-    <Wrapper>
-      <nav>
-        <h1>Wurdil Wedstriid</h1>
-        <button onClick={startGame}>New Game</button>
-      </nav>
-      <section>
-        <div id="guess-0">
-          <div className="letter" id="0">
-            {guesses[0][0]}
+    <>
+      <ToastContainer />
+      <Wrapper>
+        <nav>
+          <h1>Wurdil Wedstriid</h1>
+          <button onClick={startGame}>New Game</button>
+        </nav>
+        <section>
+          <div id="guess-0">
+            <div className="letter" id="0">
+              {guesses[0][0].toUpperCase()}
+            </div>
+            <div className="letter" id="1">
+              {guesses[0][1].toUpperCase()}
+            </div>
+            <div className="letter" id="2">
+              {guesses[0][2].toUpperCase()}
+            </div>
+            <div className="letter" id="3">
+              {guesses[0][3].toUpperCase()}
+            </div>
+            <div className="letter" id="4">
+              {guesses[0][4].toUpperCase()}
+            </div>
           </div>
-          <div className="letter" id="1">
-            {guesses[0][1]}
+          <div id="guess-1">
+            <div className="letter" id="0">
+              {guesses[1][0].toUpperCase()}
+            </div>
+            <div className="letter" id="1">
+              {guesses[1][1].toUpperCase()}
+            </div>
+            <div className="letter" id="2">
+              {guesses[1][2].toUpperCase()}
+            </div>
+            <div className="letter" id="3">
+              {guesses[1][3].toUpperCase()}
+            </div>
+            <div className="letter" id="4">
+              {guesses[1][4].toUpperCase()}
+            </div>
           </div>
-          <div className="letter" id="2">
-            {guesses[0][2]}
-          </div>
-          <div className="letter" id="3">
-            {guesses[0][3]}
-          </div>
-          <div className="letter" id="4">
-            {guesses[0][4]}
-          </div>
-        </div>
-        <div id="guess-1">
-          <div className="letter" id="0"></div>
-          <div className="letter" id="1"></div>
-          <div className="letter" id="2"></div>
-          <div className="letter" id="3"></div>
-          <div className="letter" id="4"></div>
-        </div>
-      </section>
-      <h3>{answer}</h3>
-    </Wrapper>
+        </section>
+        <h3>{answer}</h3>
+      </Wrapper>
+    </>
   );
 };
 
