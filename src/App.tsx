@@ -274,6 +274,7 @@ const App: React.FC = () => {
 export default App;
 
 const Wrapper = styled.div`
+  user-select: none;
   height: 100vh;
   nav {
     border-bottom: 1px solid gray;
@@ -292,7 +293,6 @@ const Wrapper = styled.div`
     place-content: center;
     max-width: 100%;
     .guess-container {
-      /* border: red solid 1px; */
     }
   }
   h3 {

@@ -11,9 +11,10 @@ import styled from "styled-components";
 
 interface KeyProps {
   keyChar: string;
+  icon?: React.ReactNode | null;
 }
 
-const Key: React.FC<KeyProps> = ({ keyChar }) => {
+const Key: React.FC<KeyProps> = ({ keyChar, icon }) => {
   const clickHandler = () => {
     const clickOrTouchEvent = new KeyboardEvent("keydown", {
       key: keyChar,
@@ -24,14 +25,12 @@ const Key: React.FC<KeyProps> = ({ keyChar }) => {
   return (
     <Wrapper
       onClick={clickHandler}
-      fontSize={
-        keyChar === "Enter" || keyChar === "Backspace" ? ".75rem" : "2rem"
-      }
+      fontSize={keyChar === "Enter" ? ".75rem" : "2rem"}
       width={
         keyChar === "Enter" || keyChar === "Backspace" ? "3.25rem" : "2rem"
       }
     >
-      {keyChar.toUpperCase()}
+      {icon ? icon : keyChar.toUpperCase()}
     </Wrapper>
   );
 };
@@ -48,11 +47,15 @@ const Wrapper = styled.div.attrs<KeyDivProps>((props) => ({
     width: `${props.width}`,
   },
 }))<KeyDivProps>`
+  display: grid;
   background-color: gray;
   height: 2.5rem;
   margin: 0.25rem;
   border-radius: 5px;
+
   cursor: pointer;
-  justify-content: center;
   line-height: 2.5rem;
+  .icon {
+    margin: auto;
+  }
 `;

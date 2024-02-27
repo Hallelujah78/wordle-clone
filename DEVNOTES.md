@@ -32,7 +32,7 @@
 - local storage to persist through refreshes/navigation away from the page
 - state: current game answer, the current guess index, letters used, previous guesses, whether a letter has been guessed, whether a letter is in the correct position, whether a letter is in the incorrect position
 - a killer name. I thought Wurdil and then googled to see if it meant anything. Wur Dil means "The Heart" in Urdu, so that's cool. Wurdil in Western Frisian means "Word." Wurdil Wedstriid - literally word game
-  - based on the code I've written so far I may call it "Wordle - Dumpster Fire Editon" :smiley:
+  - based on the code I've written so far I may call it "Wurdil - Dumpster Fire Editon" :smiley:
 
 ---
 
@@ -59,7 +59,7 @@
 - if the guess is correct
 
   - set game to over
-  - set the background color of the guess to green
+  - set the background color of the guess letters to green
   - set the background color of the corresponding keyboard letters to green
   - congratulate the user
 
@@ -84,8 +84,10 @@
   - S and Y are dark gray on the keyboard and in the guess squares
   - F, T, and Y are yellow on the keyboard and in the guess squares
 - if we guess EATER
+
   - E, A, and R are dark gray
   - T and E are green
+
 - guessing SOFTY again (which you are allowed to do)
 
   - the T and E on the keyboard remain green because we have them in the right positions in one of our answers (EATER)

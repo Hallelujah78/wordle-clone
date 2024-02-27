@@ -2,6 +2,7 @@
 
 // third party
 import styled from "styled-components";
+import { TbBackspaceFilled } from "react-icons/tb";
 
 // utils
 
@@ -14,7 +15,17 @@ const Keyboard: React.FC = () => {
   const renderKeys = (start: number, end: number) => {
     return keys.map((keyChar, index) => {
       if (index >= start && index <= end) {
-        return <Key key={keyChar} keyChar={keyChar} />;
+        return (
+          <Key
+            key={keyChar}
+            keyChar={keyChar}
+            icon={
+              keyChar === "Backspace" ? (
+                <TbBackspaceFilled className="icon" />
+              ) : null
+            }
+          />
+        );
       }
     });
   };
