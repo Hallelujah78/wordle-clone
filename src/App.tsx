@@ -45,7 +45,7 @@ const App: React.FC = () => {
     (event: KeyboardEvent) => {
       const guess = guesses[currentGuessIndex].join("");
 
-      if (event.key === "Enter") {
+      if (event.key === "Enter" && !isGameOver) {
         // is correct answer
         if (guess === answer && !isGameOver) {
           ///***Logic to set background colors of hidden "back" tile
@@ -102,6 +102,9 @@ const App: React.FC = () => {
 
   const alphaKeypressHandler = useCallback(
     (event: KeyboardEvent) => {
+      if (isGameOver) {
+        return;
+      }
       const keyRegex = new RegExp(/[a-z]/i);
       if (
         guesses[currentGuessIndex][currentLetterIndex].length === 0 &&
@@ -121,7 +124,7 @@ const App: React.FC = () => {
         });
       }
     },
-    [currentGuessIndex, currentLetterIndex, guesses]
+    [currentGuessIndex, currentLetterIndex, guesses, isGameOver]
   );
 
   const startGame = () => {

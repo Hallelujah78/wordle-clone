@@ -14,7 +14,7 @@ const Keyboard: React.FC = () => {
   const renderKeys = (start: number, end: number) => {
     return keys.map((keyChar, index) => {
       if (index >= start && index <= end) {
-        return <Key key={keyChar} keyChar={keyChar} index={index} />;
+        return <Key key={keyChar} keyChar={keyChar} />;
       }
     });
   };

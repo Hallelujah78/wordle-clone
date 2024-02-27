@@ -271,3 +271,11 @@ export default Shade;
 - Keyboard
   - renders Keys
 - Key
+
+### Refactoring the key press handlers
+
+- each key on the onscreen keyboard might trigger the key press handler
+- the logic for the clicked/touched key will be the same as the logic for pressing a physical key on the keyboard
+- no need to refactor!
+  - can just create a new KeyboardEvent with a key prop and dispatch it on the document!
+  - now that is cool
