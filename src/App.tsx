@@ -16,6 +16,7 @@ import { words } from "./data/data.ts";
 
 // components
 import Keyboard from "./components/Keyboard.tsx";
+import Guess from "./components/Guess.tsx";
 
 type WurdilGuess = [string, string, string, string, string];
 type Guesses = [
@@ -162,12 +163,23 @@ const App: React.FC = () => {
         </nav>
         <section>
           <div className="guess-container">
+            {guesses.map((item, index) => {
+              return <Guess item={item} />;
+            })}
             <div className="guess" id="guess-0">
-              <div className="letter" id="0">
-                {guesses[0][0].toUpperCase()}
+              <div className="letter-container">
+                <div className="letter front" id="0">
+                  {guesses[0][0].toUpperCase()}
+                </div>
+                <div className="letter back" id="0">
+                  {guesses[0][0].toUpperCase()}
+                </div>
               </div>
-              <div className="letter" id="1">
-                {guesses[0][1].toUpperCase()}
+              <div className="letter-container">
+                <div className="letter front">
+                  {guesses[0][1].toUpperCase()}
+                </div>
+                <div className="letter back">{guesses[0][1].toUpperCase()}</div>
               </div>
               <div className="letter" id="2">
                 {guesses[0][2].toUpperCase()}
@@ -304,21 +316,59 @@ const Wrapper = styled.div`
     position: absolute;
     bottom: 5%;
     left: 48vw;
+    color: white;
   }
   .guess {
     height: auto;
-
     display: flex;
     place-content: center;
   }
-  .letter {
-    display: inline-block;
-    font-size: 3rem;
+  .letter-container {
+    font-weight: 400;
+    perspective: 1000;
     height: 3rem;
     width: 3rem;
+    position: relative;
+    display: inline-block;
     border: 1px solid gray;
+    font-size: 2.5rem;
+
     text-align: center;
-    vertical-align: top;
+    line-height: 3rem;
     margin: 0.5rem;
+    .letter {
+      transition: all 1s ease;
+      backface-visibility: hidden;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .letter-container:hover {
+    .front {
+      transform: rotateX(-180deg);
+    }
+    .back {
+      transform: rotateX(0deg);
+    }
+  }
+
+  .front {
+    z-index: 3;
+    font-family: "Libre Franklin", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+  }
+  .back {
+    font-family: "Libre Franklin", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    transform: rotateY(180deg);
+    transform: rotateX(180deg);
+    color: white;
+    background-color: #438d4e;
   }
 `;

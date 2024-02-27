@@ -4,9 +4,10 @@ const GlobalStyle = createGlobalStyle`
 #root{
 font-family: "Libre Franklin", sans-serif;
   font-optical-sizing: auto;
-  font-weight: 500;
+  font-weight: 400;
   font-style: normal;
-
+background-color: black;
+color: white;
 }
 `;
 
