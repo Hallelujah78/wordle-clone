@@ -5,6 +5,8 @@ import { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import GlobalStyle from "./styles/GlobalStyles.ts";
+import { Reset } from "styled-reset";
 
 // utils
 import { getRandomArbitrary } from "./utils/utils";
@@ -149,7 +151,10 @@ const App: React.FC = () => {
 
   return (
     <>
+      <GlobalStyle />
+      <Reset />
       <ToastContainer />
+
       <Wrapper>
         <nav>
           <h1>Wurdil Wedstriid</h1>

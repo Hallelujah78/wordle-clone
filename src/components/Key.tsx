@@ -25,9 +25,9 @@ const Key: React.FC<KeyProps> = ({ keyChar, icon }) => {
   return (
     <Wrapper
       onClick={clickHandler}
-      fontSize={keyChar === "Enter" ? ".75rem" : "2rem"}
+      fontSize={keyChar === "Enter" ? ".75rem" : "1.75rem"}
       width={
-        keyChar === "Enter" || keyChar === "Backspace" ? "3.25rem" : "2rem"
+        keyChar === "Enter" || keyChar === "Backspace" ? "3.625rem" : "2.25rem"
       }
     >
       {icon ? icon : keyChar.toUpperCase()}
