@@ -1,9 +1,19 @@
+// react
 import { useState, useEffect, useCallback } from "react";
+
+// third party
 import styled from "styled-components";
-import { getRandomArbitrary } from "./utils/utils";
-import { words } from "./data/data.ts";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+// utils
+import { getRandomArbitrary } from "./utils/utils";
+
+// data
+import { words } from "./data/data.ts";
+
+// components
+import Keyboard from "./components/Keyboard.tsx";
 
 type WurdilGuess = [string, string, string, string, string];
 type Guesses = [
@@ -61,9 +71,6 @@ const App: React.FC = () => {
           setCurrentLetterIndex(0);
         }
 
-        // is guess a valid word?
-        // then
-        // increment currentGuessIndex
         // do letters in the guess appear in the answer?
         //  - is letter in correct place: true/false
       }
@@ -146,49 +153,115 @@ const App: React.FC = () => {
           <button onClick={startGame}>New Game</button>
         </nav>
         <section>
-          <div id="guess-0">
-            <div
-              style={{
-                background: `${
-                  guesses[0][0] === answer.charAt(0) ? "green" : "white"
-                }`,
-              }}
-              className="letter"
-              id="0"
-            >
-              {guesses[0][0].toUpperCase()}
+          <div className="guess-container">
+            <div className="guess" id="guess-0">
+              <div className="letter" id="0">
+                {guesses[0][0].toUpperCase()}
+              </div>
+              <div className="letter" id="1">
+                {guesses[0][1].toUpperCase()}
+              </div>
+              <div className="letter" id="2">
+                {guesses[0][2].toUpperCase()}
+              </div>
+              <div className="letter" id="3">
+                {guesses[0][3].toUpperCase()}
+              </div>
+              <div className="letter" id="4">
+                {guesses[0][4].toUpperCase()}
+              </div>
             </div>
-            <div className="letter" id="1">
-              {guesses[0][1].toUpperCase()}
+            <div className="guess" id="guess-1">
+              <div className="letter" id="0">
+                {guesses[1][0].toUpperCase()}
+              </div>
+              <div className="letter" id="1">
+                {guesses[1][1].toUpperCase()}
+              </div>
+              <div className="letter" id="2">
+                {guesses[1][2].toUpperCase()}
+              </div>
+              <div className="letter" id="3">
+                {guesses[1][3].toUpperCase()}
+              </div>
+              <div className="letter" id="4">
+                {guesses[1][4].toUpperCase()}
+              </div>
             </div>
-            <div className="letter" id="2">
-              {guesses[0][2].toUpperCase()}
+            <div className="guess" id="guess-2">
+              <div className="letter" id="0">
+                {guesses[2][0].toUpperCase()}
+              </div>
+              <div className="letter" id="1">
+                {guesses[2][1].toUpperCase()}
+              </div>
+              <div className="letter" id="2">
+                {guesses[2][2].toUpperCase()}
+              </div>
+              <div className="letter" id="3">
+                {guesses[2][3].toUpperCase()}
+              </div>
+              <div className="letter" id="4">
+                {guesses[2][4].toUpperCase()}
+              </div>
             </div>
-            <div className="letter" id="3">
-              {guesses[0][3].toUpperCase()}
+            <div className="guess" id="guess-3">
+              <div className="letter" id="0">
+                {guesses[3][0].toUpperCase()}
+              </div>
+              <div className="letter" id="1">
+                {guesses[3][1].toUpperCase()}
+              </div>
+              <div className="letter" id="2">
+                {guesses[3][2].toUpperCase()}
+              </div>
+              <div className="letter" id="3">
+                {guesses[3][3].toUpperCase()}
+              </div>
+              <div className="letter" id="4">
+                {guesses[3][4].toUpperCase()}
+              </div>
             </div>
-            <div className="letter" id="4">
-              {guesses[0][4].toUpperCase()}
+            <div className="guess" id="guess-4">
+              <div className="letter" id="0">
+                {guesses[4][0].toUpperCase()}
+              </div>
+              <div className="letter" id="1">
+                {guesses[4][1].toUpperCase()}
+              </div>
+              <div className="letter" id="2">
+                {guesses[4][2].toUpperCase()}
+              </div>
+              <div className="letter" id="3">
+                {guesses[4][3].toUpperCase()}
+              </div>
+              <div className="letter" id="4">
+                {guesses[4][4].toUpperCase()}
+              </div>
+            </div>
+            <div className="guess" id="guess-5">
+              <div className="letter" id="0">
+                {guesses[5][0].toUpperCase()}
+              </div>
+              <div className="letter" id="1">
+                {guesses[5][1].toUpperCase()}
+              </div>
+              <div className="letter" id="2">
+                {guesses[5][2].toUpperCase()}
+              </div>
+              <div className="letter" id="3">
+                {guesses[5][3].toUpperCase()}
+              </div>
+              <div className="letter" id="4">
+                {guesses[5][4].toUpperCase()}
+              </div>
             </div>
           </div>
-          <div id="guess-1">
-            <div className="letter" id="0">
-              {guesses[1][0].toUpperCase()}
-            </div>
-            <div className="letter" id="1">
-              {guesses[1][1].toUpperCase()}
-            </div>
-            <div className="letter" id="2">
-              {guesses[1][2].toUpperCase()}
-            </div>
-            <div className="letter" id="3">
-              {guesses[1][3].toUpperCase()}
-            </div>
-            <div className="letter" id="4">
-              {guesses[1][4].toUpperCase()}
-            </div>
+          <div className="keyboard-container">
+            <Keyboard />
           </div>
         </section>
+
         <h3>{answer}</h3>
       </Wrapper>
     </>
@@ -199,7 +272,6 @@ export default App;
 
 const Wrapper = styled.div`
   height: 100vh;
-  position: relative;
   nav {
     border-bottom: 1px solid gray;
     text-align: center;
@@ -216,15 +288,20 @@ const Wrapper = styled.div`
     display: grid;
     place-content: center;
     max-width: 100%;
+    .guess-container {
+      /* border: red solid 1px; */
+    }
   }
   h3 {
     position: absolute;
     bottom: 5%;
     left: 48vw;
   }
-  #guess-0 {
-    display: inline-block;
+  .guess {
     height: auto;
+
+    display: flex;
+    place-content: center;
   }
   .letter {
     display: inline-block;
