@@ -18,7 +18,7 @@ import { words } from "./data/data.ts";
 import Keyboard from "./components/Keyboard.tsx";
 import Guess from "./components/Guess.tsx";
 
-type WurdilGuess = [string, string, string, string, string];
+export type WurdilGuess = [string, string, string, string, string];
 type Guesses = [
   WurdilGuess,
   WurdilGuess,
@@ -163,119 +163,9 @@ const App: React.FC = () => {
         </nav>
         <section>
           <div className="guess-container">
-            {guesses.map((item, index) => {
-              return <Guess item={item} />;
+            {guesses.map((guess, index) => {
+              return <Guess key={index} guess={guess} />;
             })}
-            <div className="guess" id="guess-0">
-              <div className="letter-container">
-                <div className="letter front" id="0">
-                  {guesses[0][0].toUpperCase()}
-                </div>
-                <div className="letter back" id="0">
-                  {guesses[0][0].toUpperCase()}
-                </div>
-              </div>
-              <div className="letter-container">
-                <div className="letter front">
-                  {guesses[0][1].toUpperCase()}
-                </div>
-                <div className="letter back">{guesses[0][1].toUpperCase()}</div>
-              </div>
-              <div className="letter" id="2">
-                {guesses[0][2].toUpperCase()}
-              </div>
-              <div className="letter" id="3">
-                {guesses[0][3].toUpperCase()}
-              </div>
-              <div className="letter" id="4">
-                {guesses[0][4].toUpperCase()}
-              </div>
-            </div>
-            <div className="guess" id="guess-1">
-              <div className="letter" id="0">
-                {guesses[1][0].toUpperCase()}
-              </div>
-              <div className="letter" id="1">
-                {guesses[1][1].toUpperCase()}
-              </div>
-              <div className="letter" id="2">
-                {guesses[1][2].toUpperCase()}
-              </div>
-              <div className="letter" id="3">
-                {guesses[1][3].toUpperCase()}
-              </div>
-              <div className="letter" id="4">
-                {guesses[1][4].toUpperCase()}
-              </div>
-            </div>
-            <div className="guess" id="guess-2">
-              <div className="letter" id="0">
-                {guesses[2][0].toUpperCase()}
-              </div>
-              <div className="letter" id="1">
-                {guesses[2][1].toUpperCase()}
-              </div>
-              <div className="letter" id="2">
-                {guesses[2][2].toUpperCase()}
-              </div>
-              <div className="letter" id="3">
-                {guesses[2][3].toUpperCase()}
-              </div>
-              <div className="letter" id="4">
-                {guesses[2][4].toUpperCase()}
-              </div>
-            </div>
-            <div className="guess" id="guess-3">
-              <div className="letter" id="0">
-                {guesses[3][0].toUpperCase()}
-              </div>
-              <div className="letter" id="1">
-                {guesses[3][1].toUpperCase()}
-              </div>
-              <div className="letter" id="2">
-                {guesses[3][2].toUpperCase()}
-              </div>
-              <div className="letter" id="3">
-                {guesses[3][3].toUpperCase()}
-              </div>
-              <div className="letter" id="4">
-                {guesses[3][4].toUpperCase()}
-              </div>
-            </div>
-            <div className="guess" id="guess-4">
-              <div className="letter" id="0">
-                {guesses[4][0].toUpperCase()}
-              </div>
-              <div className="letter" id="1">
-                {guesses[4][1].toUpperCase()}
-              </div>
-              <div className="letter" id="2">
-                {guesses[4][2].toUpperCase()}
-              </div>
-              <div className="letter" id="3">
-                {guesses[4][3].toUpperCase()}
-              </div>
-              <div className="letter" id="4">
-                {guesses[4][4].toUpperCase()}
-              </div>
-            </div>
-            <div className="guess" id="guess-5">
-              <div className="letter" id="0">
-                {guesses[5][0].toUpperCase()}
-              </div>
-              <div className="letter" id="1">
-                {guesses[5][1].toUpperCase()}
-              </div>
-              <div className="letter" id="2">
-                {guesses[5][2].toUpperCase()}
-              </div>
-              <div className="letter" id="3">
-                {guesses[5][3].toUpperCase()}
-              </div>
-              <div className="letter" id="4">
-                {guesses[5][4].toUpperCase()}
-              </div>
-            </div>
           </div>
           <div className="keyboard-container">
             <Keyboard />
@@ -300,7 +190,6 @@ const Wrapper = styled.div`
   }
   h1 {
     margin: auto;
-
     height: 100%;
     font-size: 3rem;
   }
@@ -309,8 +198,6 @@ const Wrapper = styled.div`
     display: grid;
     place-content: center;
     max-width: 100%;
-    .guess-container {
-    }
   }
   h3 {
     position: absolute;
@@ -318,57 +205,7 @@ const Wrapper = styled.div`
     left: 48vw;
     color: white;
   }
-  .guess {
-    height: auto;
-    display: flex;
-    place-content: center;
-  }
-  .letter-container {
-    font-weight: 400;
-    perspective: 1000;
-    height: 3rem;
-    width: 3rem;
-    position: relative;
-    display: inline-block;
-    border: 1px solid gray;
-    font-size: 2.5rem;
-
-    text-align: center;
-    line-height: 3rem;
-    margin: 0.5rem;
-    .letter {
-      transition: all 1s ease;
-      backface-visibility: hidden;
-      position: absolute;
-      height: 100%;
-      width: 100%;
-    }
-  }
-
-  .letter-container:hover {
-    .front {
-      transform: rotateX(-180deg);
-    }
-    .back {
-      transform: rotateX(0deg);
-    }
-  }
-
-  .front {
-    z-index: 3;
-    font-family: "Libre Franklin", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-  }
-  .back {
-    font-family: "Libre Franklin", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-    transform: rotateY(180deg);
-    transform: rotateX(180deg);
-    color: white;
-    background-color: #438d4e;
+  .guess-container {
+    margin: auto;
   }
 `;

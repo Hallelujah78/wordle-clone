@@ -7,15 +7,21 @@ import styled from "styled-components";
 
 // data
 
+// types
+import { WurdilGuess } from "../App";
+
 // components
 import Tile from "./Tile";
+interface GuessProps {
+  guess: WurdilGuess;
+}
 
-type WurdilGuess = [string, string, string, string, string];
-
-const Guess: React.FC<WurdilGuess> = (item) => {
+const Guess: React.FC<GuessProps> = ({ guess }) => {
   return (
     <Wrapper className="guess">
-      <Tile />
+      {guess.map((letter, index) => {
+        return <Tile key={index} letter={letter} />;
+      })}
     </Wrapper>
   );
 };
