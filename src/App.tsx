@@ -94,21 +94,22 @@ const App: React.FC = () => {
     console.log(`***${answer}***`);
     for (let i = 0; i <= answer.length - 1; i++) {
       const keyToUpdate = newKeyboardState.find((keyObj) => {
-        return keyObj.key === checkAns[i];
+        return keyObj.key === guesses[currentGuessIndex][i];
       })!;
       if (checkAns[i] === guesses[currentGuessIndex][i]) {
+        // the letter is in the answer and in the right position
         keyToUpdate.color = "#538d4e";
       } else if (
         checkAns.includes(guesses[currentGuessIndex][i]) &&
         keyToUpdate.color !== "#538d4e"
       ) {
-        keyToUpdate.color !== "#b59f3b";
-      } else {
-        keyToUpdate.color !== "#3a3a3c";
+        keyToUpdate.color = "#b59f3b";
+      } else if (!keyToUpdate.color) {
+        keyToUpdate.color = "#3a3a3c";
       }
     }
     setKeyboardState(newKeyboardState);
-  }, [answer, guesses, currentGuessIndex, keyboardState]);
+  }, [answer, guesses, currentGuessIndex, keyboardState, setKeyboardState]);
 
   const enterKeyHandler = useCallback(
     (event: KeyboardEvent) => {
