@@ -12,9 +12,10 @@ import styled from "styled-components";
 interface KeyProps {
   keyChar: string;
   icon?: React.ReactNode | null;
+  bgColor: string | null;
 }
 
-const Key: React.FC<KeyProps> = ({ keyChar, icon }) => {
+const Key: React.FC<KeyProps> = ({ keyChar, icon, bgColor }) => {
   const clickHandler = () => {
     const clickOrTouchEvent = new KeyboardEvent("keydown", {
       key: keyChar,
@@ -24,6 +25,7 @@ const Key: React.FC<KeyProps> = ({ keyChar, icon }) => {
 
   return (
     <Wrapper
+      style={{ backgroundColor: `${bgColor ? bgColor : "#818384"}` }}
       onClick={clickHandler}
       fontSize={keyChar === "Enter" ? ".75rem" : "1.5rem"}
       width={
@@ -48,7 +50,7 @@ const Wrapper = styled.div.attrs<KeyDivProps>((props) => ({
   },
 }))<KeyDivProps>`
   display: grid;
-  background-color: gray;
+  background-color: #818384;
   height: 2.5rem;
   margin: 0.25rem;
   border-radius: 5px;

@@ -11,12 +11,25 @@ import { keys } from "../data/keys";
 // components
 import Key from "./Key.tsx";
 
-const Keyboard: React.FC = () => {
+//models
+import { KeyType } from "../App.tsx";
+
+interface KeyboardProps {
+  keyboardState: KeyType[];
+}
+
+const Keyboard: React.FC<KeyboardProps> = ({ keyboardState }) => {
   const renderKeys = (start: number, end: number) => {
     return keys.map((keyChar, index) => {
       if (index >= start && index <= end) {
+        const keyToUpdate = keyboardState.find((keyObj) => {
+          return keyObj.key === keyChar;
+        })!;
+        const bgColor = keyToUpdate.color;
+
         return (
           <Key
+            bgColor={bgColor}
             key={keyChar}
             keyChar={keyChar}
             icon={

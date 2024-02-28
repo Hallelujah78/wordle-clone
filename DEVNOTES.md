@@ -279,5 +279,50 @@ export default Shade;
 - each key on the onscreen keyboard might trigger the key press handler
 - the logic for the clicked/touched key will be the same as the logic for pressing a physical key on the keyboard
 - no need to refactor!
+
   - can just create a new KeyboardEvent with a key prop and dispatch it on the document!
   - now that is cool
+
+  ### Logic to color the letters (see above also)
+
+- on hitting enter
+
+  - if nth letter of guess is equal to nth letter of answer
+    - color is green on keyboard and in guess
+  - else if nth letter of guess is included in answer && keyboard key is already green
+    - color is yellow in guess
+    - don't change keyboard color
+  - else color is dark gray
+
+- I would asume that a letter can change from yellow to green on the keyboard but not the other way
+
+  - this has to be correct
+
+- keyboard key colors can only be updated when an answer is submitted
+  - when enter is pressed
+- the .back tile can have its color updated immediately
+  - color only revealed when enter is pressed - trigger animation
+
+### The keyboard color update
+
+- do this first, easier to manage
+- App renders Keyboard which renders Key
+- every time enter is pressed (assuming conditions are met) we run a function:
+  - I think we pass the background color to the Key as a prop
+  - therefore, I think we need some state??
+- on the other hand, each key can derive what its color should be by running some code itself - but it can only be triggered when enter is pressed && the guess is valid
+- keyboard state:
+
+```js
+[{"a": "#808080"}, {"b": "#808080"}...]
+```
+
+- #808080 being the unused default color - set as a global var
+- this is held in app
+- each time we submit a guess (have to figure out how to determine when a guess is successfully submitted)
+  - we iterate over that guesses' letters
+  - if guess[0] === answer[0]
+    - update keyboard to green
+  - else if answer.includes(guess[0]) && keyboard.letter !== "green"
+    - set keyboard letter to yellow
+  - else set keyboard to dark gray - the letter is not in the answer
