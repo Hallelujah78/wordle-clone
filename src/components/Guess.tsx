@@ -21,7 +21,7 @@ const Guess: React.FC<GuessProps> = ({ guess, answer }) => {
   return (
     <Wrapper className="guess">
       {guess.map((letter, index) => {
-        let position;
+        let position = "";
         if (answer[index] === letter) {
           position = "correct";
         }

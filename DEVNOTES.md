@@ -333,3 +333,9 @@ export default Shade;
   - allow currentGuessIndex to move to 6 (0-5 is six guesses)
   - index only incremented on a valid guess
   - execute the animation to flip the tiles when currentGuessIndex is updated
+
+### Next Commit
+
+Subject:
+Feat: guess tile animation
+Body: add framer-motion package. Add framer motion to Key components to make app more visually appealing. Odd keys slide from top and odd keys slide from bottom when app first loads.

@@ -26,9 +26,12 @@ const Keyboard: React.FC<KeyboardProps> = ({ keyboardState }) => {
           return keyObj.key === keyChar;
         })!;
         const bgColor = keyToUpdate.color;
-
+        const delay = index * 0.05;
+        const xStart = index % 2 === 0 ? -50 : 50;
         return (
           <Key
+            xStart={xStart}
+            delay={delay}
             bgColor={bgColor}
             key={keyChar}
             keyChar={keyChar}
@@ -55,7 +58,7 @@ export default Keyboard;
 
 const Wrapper = styled.div`
   margin-top: 2rem;
-  width: 70vw;
+  width: 98vw;
   text-align: center;
   height: 25vh;
   .row {

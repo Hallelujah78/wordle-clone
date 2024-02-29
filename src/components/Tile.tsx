@@ -34,16 +34,15 @@ export default Tile;
 const Wrapper = styled.div`
   font-weight: 400;
   perspective: 1000;
-  height: 3rem;
-  width: 3rem;
+  height: 4rem;
+  width: 4rem;
   position: relative;
   display: inline-block;
   border: 1px solid gray;
   font-size: 2.5rem;
-
   text-align: center;
-  line-height: 3rem;
-  margin: 0.5rem;
+  line-height: 4rem;
+  margin: 0.15rem;
 
   .letter {
     transition: all 1s ease;
