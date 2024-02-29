@@ -337,5 +337,5 @@ export default Shade;
 ### Next Commit
 
 Subject:
-Feat: guess tile animation
-Body: add framer-motion package. Add framer motion to Key components to make app more visually appealing. Odd keys slide from top and odd keys slide from bottom when app first loads.
+Feat: guess tile 180deg x-axis rotation animation
+Body: Refactored so now we are using framer-motion to flip each Tile in our Guess

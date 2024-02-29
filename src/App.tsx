@@ -67,6 +67,8 @@ const initialKeyboardState: KeyType[] = [
   { key: "Enter", color: null },
 ];
 
+const initialGuessCompletionState = [false, false, false, false, false, false];
+
 const initialGuessState: Guesses = [
   ["", "", "", "", ""],
   ["", "", "", "", ""],
@@ -84,6 +86,9 @@ const App: React.FC = () => {
   const [isGameOver, setIsGameOver] = useState<boolean>(false);
   const [keyboardState, setKeyboardState] =
     useState<KeyType[]>(initialKeyboardState);
+  const [isGuessComplete, setIsGuessComplete] = useState(
+    initialGuessCompletionState
+  );
 
   const updateKeyboard = useCallback(() => {
     // guesses, answer
@@ -114,6 +119,7 @@ const App: React.FC = () => {
   const enterKeyHandler = useCallback(
     (event: KeyboardEvent) => {
       const guess = guesses[currentGuessIndex].join("");
+      const newIsGuessComplete = [...isGuessComplete];
 
       if (event.key === "Enter" && !isGameOver) {
         // is correct answer
@@ -123,6 +129,8 @@ const App: React.FC = () => {
           ///***Logic to set background colors of hidden "back" tile
           ///***Trigger the animation to flip tiles***
           ///***Indicate which tiles are in correct position***
+          newIsGuessComplete[currentGuessIndex] = true;
+          setIsGuessComplete(newIsGuessComplete);
           setCurrentGuessIndex((prev) => (prev < 5 ? prev + 1 : prev));
           setIsGameOver(true);
           toast("congrats you won!");
@@ -131,15 +139,17 @@ const App: React.FC = () => {
         }
         // guess must be valid word but incorrect
         else if (currentGuessIndex === 5) {
+          newIsGuessComplete[currentGuessIndex] = true;
+          setIsGuessComplete(newIsGuessComplete);
           updateKeyboard();
           // that was your last guess
           setIsGameOver(true);
-          toast(
-            `bad luck, you lose! The correct answer was ${answer.toUpperCase()}`
-          );
+          toast(`Bad luck! The correct answer was ${answer.toUpperCase()}`);
         } else {
           // you have more guesses left
-          toast("bad luck!");
+
+          newIsGuessComplete[currentGuessIndex] = true;
+          setIsGuessComplete(newIsGuessComplete);
           updateKeyboard();
           setCurrentGuessIndex((prev) => prev + 1);
           setCurrentLetterIndex(0);
@@ -149,7 +159,14 @@ const App: React.FC = () => {
         //  - is letter in correct place: true/false
       }
     },
-    [currentGuessIndex, answer, guesses, isGameOver, updateKeyboard]
+    [
+      currentGuessIndex,
+      answer,
+      guesses,
+      isGameOver,
+      updateKeyboard,
+      isGuessComplete,
+    ]
   );
 
   const deleteKeyHandler = useCallback(
@@ -187,7 +204,8 @@ const App: React.FC = () => {
       ) {
         setGuesses((prev) => {
           const newState = JSON.parse(JSON.stringify(prev));
-          newState[currentGuessIndex][currentLetterIndex] = event.key;
+          newState[currentGuessIndex][currentLetterIndex] =
+            event.key.toLowerCase();
           return newState;
         });
         setCurrentLetterIndex((prev) => {
@@ -202,6 +220,7 @@ const App: React.FC = () => {
   );
 
   const startGame = () => {
+    setIsGuessComplete(initialGuessCompletionState);
     setKeyboardState(initialKeyboardState);
     setGuesses(initialGuessState);
     setCurrentGuessIndex(0);
@@ -236,7 +255,15 @@ const App: React.FC = () => {
         <section>
           <div className="guess-container">
             {guesses.map((guess, index) => {
-              return <Guess key={index} guess={guess} answer={answer} />;
+              const isComplete = isGuessComplete[index];
+              return (
+                <Guess
+                  isComplete={isComplete}
+                  key={index}
+                  guess={guess}
+                  answer={answer}
+                />
+              );
             })}
           </div>
           <div className="keyboard-container">
