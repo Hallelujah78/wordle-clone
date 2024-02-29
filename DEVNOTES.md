@@ -326,3 +326,10 @@ export default Shade;
   - else if answer.includes(guess[0]) && keyboard.letter !== "green"
     - set keyboard letter to yellow
   - else set keyboard to dark gray - the letter is not in the answer
+
+### Updating Tile Colors
+
+- thought
+  - allow currentGuessIndex to move to 6 (0-5 is six guesses)
+  - index only incremented on a valid guess
+  - execute the animation to flip the tiles when currentGuessIndex is updated

@@ -8,19 +8,24 @@ import styled from "styled-components";
 // data
 
 // types
-import { WurdilGuess } from "../App";
+import { GuessType } from "../App";
 
 // components
 import Tile from "./Tile";
 interface GuessProps {
-  guess: WurdilGuess;
+  guess: GuessType;
+  answer: string;
 }
 
-const Guess: React.FC<GuessProps> = ({ guess }) => {
+const Guess: React.FC<GuessProps> = ({ guess, answer }) => {
   return (
     <Wrapper className="guess">
       {guess.map((letter, index) => {
-        return <Tile key={index} letter={letter} />;
+        let position;
+        if (answer[index] === letter) {
+          position = "correct";
+        }
+        return <Tile key={index} letter={letter} position={position} />;
       })}
     </Wrapper>
   );

@@ -21,14 +21,14 @@ import { words } from "./data/data.ts";
 import Keyboard from "./components/Keyboard.tsx";
 import Guess from "./components/Guess.tsx";
 
-export type WurdilGuess = [string, string, string, string, string];
+export type GuessType = [string, string, string, string, string];
 type Guesses = [
-  WurdilGuess,
-  WurdilGuess,
-  WurdilGuess,
-  WurdilGuess,
-  WurdilGuess,
-  WurdilGuess
+  GuessType,
+  GuessType,
+  GuessType,
+  GuessType,
+  GuessType,
+  GuessType
 ];
 
 export type KeyType = {
@@ -236,7 +236,7 @@ const App: React.FC = () => {
         <section>
           <div className="guess-container">
             {guesses.map((guess, index) => {
-              return <Guess key={index} guess={guess} />;
+              return <Guess key={index} guess={guess} answer={answer} />;
             })}
           </div>
           <div className="keyboard-container">

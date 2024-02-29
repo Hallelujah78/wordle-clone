@@ -14,12 +14,17 @@ import styled from "styled-components";
 
 interface TileProps {
   letter: string;
+  position: string;
 }
 
-const Tile: React.FC<TileProps> = ({ letter }) => {
+const Tile: React.FC<TileProps> = ({ letter, position }) => {
   return (
     <Wrapper className="letter-container">
-      <div className="letter front">{letter?.toUpperCase()}</div>
+      <div
+        className={`letter front ${position === "correct" ? "green" : "gray"}`}
+      >
+        {letter?.toUpperCase()}
+      </div>
       <div className="letter back">{letter?.toUpperCase()}</div>
     </Wrapper>
   );
@@ -73,5 +78,15 @@ const Wrapper = styled.div`
     transform: rotateX(180deg);
     color: white;
     background-color: #438d4e;
+  }
+
+  .green {
+    background: green;
+  }
+  .darkgray {
+    background: darkgray;
+  }
+  .yellow {
+    background: yellow;
   }
 `;
