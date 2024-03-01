@@ -16,6 +16,11 @@ const variants = {
   notCompleteFront: { rotateX: 0 },
   completeBack: { rotateX: 0 },
   notCompleteBack: { rotateX: -180 },
+  hasLetter: {
+    scale: [1, 1.03, 0.97, 1],
+    borderRadius: ["0%", "50%", "0%"],
+    rotate: [0, 180, 360],
+  },
 };
 
 // models
@@ -30,7 +35,13 @@ interface TileProps {
 const Tile: React.FC<TileProps> = ({ letter, position, isComplete, delay }) => {
   console.log(isComplete);
   return (
-    <Wrapper className="letter-container">
+    <Wrapper
+      as={motion.div}
+      variants={variants}
+      animate={letter && "hasLetter"}
+      transition={{ duration: 0.2 }}
+      className="letter-container"
+    >
       <motion.div
         variants={variants}
         animate={isComplete ? "completeFront" : "notCompleteFront"}
@@ -42,13 +53,15 @@ const Tile: React.FC<TileProps> = ({ letter, position, isComplete, delay }) => {
       <motion.div
         variants={variants}
         animate={isComplete ? "completeBack" : "notCompleteBack"}
-        transition={{ delay, duration: 1.1 }}
+        transition={{ delay, duration: 0.5 }}
         className={`${
           position === "correct"
             ? "green"
             : position === "includes"
             ? "yellow"
-            : "darkgray"
+            : position === "absent"
+            ? "darkgray"
+            : null
         } letter`}
       >
         {letter?.toUpperCase()}
@@ -73,7 +86,6 @@ const Wrapper = styled.div`
   .letter {
     backface-visibility: hidden;
     position: absolute;
-    transition: all 1.1s ease-in;
     height: 100%;
     width: 100%;
   }

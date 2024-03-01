@@ -23,14 +23,16 @@ const Guess: React.FC<GuessProps> = ({ guess, answer, isComplete }) => {
     <Wrapper className="guess">
       {guess.map((letter, index) => {
         let position = "";
-        if (answer[index] === letter) {
+        if (!letter) {
+          position = "empty";
+        } else if (answer[index] === letter) {
           position = "correct";
         } else if (answer.includes(letter)) {
           position = "includes";
         } else {
           position = "absent";
         }
-        const delay = index * 0.3;
+        const delay = index * 0.25;
         return (
           <Tile
             key={index}

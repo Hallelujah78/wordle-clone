@@ -28,9 +28,14 @@ const Key: React.FC<KeyProps> = ({ keyChar, icon, bgColor, delay, xStart }) => {
   return (
     <Wrapper
       as={motion.div}
+      whileHover={{ scale: 1.05 }}
       initial={{ opacity: 0, translateY: xStart }}
       animate={{ opacity: 1, translateY: 0 }}
-      transition={{ duration: 0.1, delay }}
+      transition={{
+        opacity: { duration: 0.1, delay },
+        translateY: { duration: 0.2, delay },
+        scale: { duration: 0 },
+      }}
       style={{ backgroundColor: `${bgColor ? bgColor : "#818384"}` }}
       onClick={clickHandler}
       fontSize={keyChar === "Enter" ? ".75rem" : "1.25rem"}
