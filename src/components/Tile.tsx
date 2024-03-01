@@ -33,7 +33,6 @@ interface TileProps {
 }
 
 const Tile: React.FC<TileProps> = ({ letter, position, isComplete, delay }) => {
-  console.log(isComplete);
   return (
     <Wrapper
       as={motion.div}

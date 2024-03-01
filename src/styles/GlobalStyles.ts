@@ -9,6 +9,11 @@ font-family: "Libre Franklin", sans-serif;
 background-color: #121213;
 color: white;
 }
+.lilita-one-regular {
+      font-family: "Lilita One", sans-serif;
+      font-weight: 400;
+      font-style: normal;
+    }
 `;
 
 export default GlobalStyle;

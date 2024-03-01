@@ -96,7 +96,7 @@ const App: React.FC = () => {
     const newKeyboardState: KeyType[] = JSON.parse(
       JSON.stringify(keyboardState)
     );
-    console.log(`***${answer}***`);
+
     for (let i = 0; i <= answer.length - 1; i++) {
       const keyToUpdate = newKeyboardState.find((keyObj) => {
         return keyObj.key === guesses[currentGuessIndex][i];
@@ -126,9 +126,7 @@ const App: React.FC = () => {
         if (guess === answer && !isGameOver) {
           // change keyboard colors
           updateKeyboard();
-          ///***Logic to set background colors of hidden "back" tile
-          ///***Trigger the animation to flip tiles***
-          ///***Indicate which tiles are in correct position***
+
           newIsGuessComplete[currentGuessIndex] = true;
           setIsGuessComplete(newIsGuessComplete);
           setCurrentGuessIndex((prev) => (prev < 5 ? prev + 1 : prev));
@@ -146,17 +144,12 @@ const App: React.FC = () => {
           setIsGameOver(true);
           toast(`Bad luck! The correct answer was ${answer.toUpperCase()}`);
         } else {
-          // you have more guesses left
-
           newIsGuessComplete[currentGuessIndex] = true;
           setIsGuessComplete(newIsGuessComplete);
           updateKeyboard();
           setCurrentGuessIndex((prev) => prev + 1);
           setCurrentLetterIndex(0);
         }
-
-        // do letters in the guess appear in the answer?
-        //  - is letter in correct place: true/false
       }
     },
     [
@@ -249,8 +242,15 @@ const App: React.FC = () => {
 
       <Wrapper>
         <nav>
-          <h1>Wurdil Wedstriid</h1>
-          <button onClick={startGame}>New Game</button>
+          <div></div>
+          <div>
+            <h1 className="lilita-one-regular">
+              Wurdil - Dumpster Fire Edition
+            </h1>
+          </div>
+          <div>
+            <button onClick={startGame}>New Game</button>
+          </div>
         </nav>
         <section>
           <div className="guess-container">
@@ -284,13 +284,14 @@ const Wrapper = styled.div`
   height: 100vh;
   nav {
     border-bottom: 1px solid gray;
-    text-align: center;
-    height: 3rem;
+    height: 4rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    place-content: center;
   }
   h1 {
-    margin: auto;
-    height: 100%;
-    font-size: 3rem;
+    text-align: center;
+    font-size: 1.75rem;
   }
   section {
     height: calc(100vh - 3rem);
