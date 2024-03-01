@@ -31,3 +31,8 @@ const Guess: React.FC<GuessProps> = ({ guess }) => {...}
 ```
 
 - use the `{}` around the params to destructure
+
+### 3 'styled-reset' package
+
+- this package doesn't appear to set `box-sizing: border-box;` which is something I would use on all projects
+- I had to set my `nav` to `border-box` manually

@@ -63,7 +63,6 @@ const Wrapper = styled.div`
   height: 25vh;
   .row {
     display: flex;
-
     place-content: center;
   }
 `;

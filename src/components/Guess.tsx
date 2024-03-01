@@ -49,9 +49,7 @@ const Guess: React.FC<GuessProps> = ({ guess, answer, isComplete }) => {
 export default Guess;
 
 const Wrapper = styled.div`
-  .guess {
-    height: auto;
-    display: flex;
-    place-content: center;
-  }
+  height: auto;
+  display: flex;
+  place-content: center;
 `;

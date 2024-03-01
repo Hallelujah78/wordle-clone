@@ -270,41 +270,35 @@ const App: React.FC = () => {
             <Keyboard keyboardState={keyboardState} />
           </div>
         </section>
-
-        <h3>{answer}</h3>
       </Wrapper>
     </>
   );
 };
 
 export default App;
-
 const Wrapper = styled.div`
   user-select: none;
   height: 100vh;
+  max-height: 100vh;
   nav {
     border-bottom: 1px solid gray;
     height: 4rem;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     place-content: center;
+    box-sizing: border-box;
   }
   h1 {
     text-align: center;
     font-size: 1.75rem;
   }
   section {
-    height: calc(100vh - 3rem);
+    height: calc(100vh - 4rem);
     display: grid;
     place-content: center;
     max-width: 100%;
   }
-  h3 {
-    position: absolute;
-    bottom: 5%;
-    left: 48vw;
-    color: white;
-  }
+
   .guess-container {
     margin: auto;
   }
