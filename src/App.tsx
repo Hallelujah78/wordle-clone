@@ -133,7 +133,9 @@ const App: React.FC = () => {
           setIsGameOver(true);
           toast("congrats you won!");
         } else if (!words.includes(guess)) {
-          toast("not a valid answer!");
+          toast("not a valid answer!", {
+            position: "bottom-center",
+          });
         }
         // guess must be valid word but incorrect
         else if (currentGuessIndex === 5) {
@@ -242,14 +244,15 @@ const App: React.FC = () => {
 
       <Wrapper>
         <nav>
-          <div></div>
-          <div>
-            <h1 className="lilita-one-regular">
+          <div className="nav-center">
+            <div></div>
+
+            <div className="title lilita-one-regular">
               Wurdil - Dumpster Fire Edition
-            </h1>
-          </div>
-          <div>
-            <button onClick={startGame}>New Game</button>
+            </div>
+            <div className="button-container">
+              <button onClick={startGame}>Play Now</button>
+            </div>
           </div>
         </nav>
         <section>
@@ -276,22 +279,34 @@ const App: React.FC = () => {
 };
 
 export default App;
+
 const Wrapper = styled.div`
   user-select: none;
   height: 100vh;
   max-height: 100vh;
   nav {
     border-bottom: 1px solid gray;
+    box-sizing: border-box;
     height: 4rem;
+  }
+  .nav-center {
+    height: 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 0.5fr 2fr 0.5fr;
     place-content: center;
     box-sizing: border-box;
+    width: 95vw;
+    vertical-align: middle;
+    margin: auto;
   }
-  h1 {
+  div.title {
+    display: grid;
     text-align: center;
-    font-size: 1.75rem;
+    place-content: center;
+    height: 4rem;
+    font-size: calc(1.25rem + 0.390625vw);
   }
+
   section {
     height: calc(100vh - 4rem);
     display: grid;
@@ -301,5 +316,17 @@ const Wrapper = styled.div`
 
   .guess-container {
     margin: auto;
+  }
+  .button-container {
+    display: flex;
+
+    align-items: center;
+    justify-content: right;
+    button {
+      border-radius: 0.75rem;
+      padding: 0.5rem 0.8rem;
+      width: fit-content;
+      height: fit-content;
+    }
   }
 `;
