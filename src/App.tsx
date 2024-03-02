@@ -10,6 +10,7 @@ import "./styles/styles.css";
 // third party
 import { ToastContainer, toast } from "react-toastify";
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
 // utils
 import { getRandomArbitrary } from "./utils/utils";
@@ -82,7 +83,9 @@ const App: React.FC = () => {
   const [guesses, setGuesses] = useState<Guesses>(initialGuessState);
   const [currentGuessIndex, setCurrentGuessIndex] = useState<number>(0);
   const [currentLetterIndex, setCurrentLetterIndex] = useState<number>(0);
-  const [answer, setAnswer] = useState<string>("");
+  const [answer, setAnswer] = useState<string>(() => {
+    return words[getRandomArbitrary(0, words.length - 1)];
+  });
   const [isGameOver, setIsGameOver] = useState<boolean>(false);
   const [keyboardState, setKeyboardState] =
     useState<KeyType[]>(initialKeyboardState);
@@ -241,22 +244,27 @@ const App: React.FC = () => {
       <GlobalStyle />
       <Reset />
       <ToastContainer />
-
       <Wrapper>
         <nav>
           <div className="nav-center">
             <div></div>
 
-            <div className="title lilita-one-regular">
+            <motion.div
+              initial={{ y: -250 }}
+              animate={{ y: 0 }}
+              className="title lilita-one-regular"
+            >
               Wurdil - Dumpster Fire Edition
-            </div>
-            <div className="button-container">
-              <button onClick={startGame}>Play Now</button>
-            </div>
+            </motion.div>
           </div>
         </nav>
         <section>
-          <div className="guess-container">
+          <motion.div
+            initial={{ rotateX: -180 }}
+            animate={{ rotateX: 0 }}
+            transition={{ duration: 1.5 }}
+            className="guess-container"
+          >
             {guesses.map((guess, index) => {
               const isComplete = isGuessComplete[index];
               return (
@@ -268,11 +276,19 @@ const App: React.FC = () => {
                 />
               );
             })}
-          </div>
+          </motion.div>
           <div className="keyboard-container">
             <Keyboard keyboardState={keyboardState} />
           </div>
         </section>
+        <motion.div
+          initial={{ x: 0, y: 0, translateX: "-50%" }}
+          animate={{ display: "none" }}
+          transition={{ delay: 2, duration: 0.8 }}
+          className="start-game"
+        >
+          Guess the first word!
+        </motion.div>
       </Wrapper>
     </>
   );
@@ -281,9 +297,11 @@ const App: React.FC = () => {
 export default App;
 
 const Wrapper = styled.div`
+  position: relative;
   user-select: none;
   height: 100vh;
   max-height: 100vh;
+  overflow: hidden;
   nav {
     border-bottom: 1px solid gray;
     box-sizing: border-box;
@@ -328,5 +346,17 @@ const Wrapper = styled.div`
       width: fit-content;
       height: fit-content;
     }
+  }
+  .start-game {
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 35%;
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+    width: fit-content;
+    background: white;
+    color: black;
+    font-size: calc(1.25rem + 0.390625vw);
   }
 `;
