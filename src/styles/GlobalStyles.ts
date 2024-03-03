@@ -2,7 +2,7 @@ import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
 #root{
- 
+  box-sizing: border-box !important;
 font-family: "Libre Franklin", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;

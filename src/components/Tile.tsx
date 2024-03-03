@@ -34,38 +34,40 @@ interface TileProps {
 
 const Tile: React.FC<TileProps> = ({ letter, position, isComplete, delay }) => {
   return (
-    <Wrapper
-      as={motion.div}
-      variants={variants}
-      animate={letter && "hasLetter"}
-      transition={{ duration: 0.2 }}
-      className="letter-container"
-    >
-      <motion.div
-        variants={variants}
-        animate={isComplete ? "completeFront" : "notCompleteFront"}
-        transition={{ delay, duration: 1.1 }}
-        className="letter"
-      >
-        {letter?.toUpperCase()}
-      </motion.div>
-      <motion.div
-        variants={variants}
-        animate={isComplete ? "completeBack" : "notCompleteBack"}
-        transition={{ delay, duration: 0.5 }}
-        className={`${
-          position === "correct"
-            ? "green"
-            : position === "includes"
-            ? "yellow"
-            : position === "absent"
-            ? "darkgray"
-            : null
-        } letter`}
-      >
-        {letter?.toUpperCase()}
-      </motion.div>
-    </Wrapper>
+    <>
+      <Wrapper>
+        <motion.div
+          variants={variants}
+          animate={isComplete ? "completeFront" : "notCompleteFront"}
+          transition={{ delay, duration: 1.1 }}
+          className="letter"
+        >
+          {letter?.toUpperCase()}
+        </motion.div>
+        <motion.div
+          variants={variants}
+          animate={isComplete ? "completeBack" : "notCompleteBack"}
+          transition={{ delay, duration: 0.5 }}
+          className={`${
+            position === "correct"
+              ? "green"
+              : position === "includes"
+              ? "yellow"
+              : position === "absent"
+              ? "darkgray"
+              : null
+          } letter`}
+        >
+          {letter?.toUpperCase()}
+        </motion.div>
+        <motion.div
+          variants={variants}
+          animate={letter && "hasLetter"}
+          transition={{ duration: 0.5 }}
+          className="border"
+        ></motion.div>
+      </Wrapper>
+    </>
   );
 };
 export default Tile;
@@ -76,7 +78,7 @@ const Wrapper = styled.div`
   width: 3.25rem;
   position: relative;
   display: inline-block;
-  border: 2px solid gray;
+  border: 2px solid transparent;
   font-size: 2.25rem;
   text-align: center;
   line-height: 3.25rem;
@@ -97,5 +99,18 @@ const Wrapper = styled.div`
   }
   .yellow {
     background: #b59f3b;
+  }
+  .border {
+    height: 3.25rem;
+    width: 3.25rem;
+    position: absolute;
+    display: inline-block;
+    top: -4px;
+    right: -0.27rem;
+    border: 2px solid gray;
+    font-size: 2.25rem;
+    text-align: center;
+    line-height: 3.25rem;
+    margin: 0.15rem;
   }
 `;

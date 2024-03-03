@@ -338,13 +338,7 @@ export default Shade;
 
 ### Todo
 
-- style new game button
-  - when pressing the new game button, there is no feedback to the user that the game has commenced
-  - may need to utilize a modal like the NYT version
 - when a player loses we show them a dumpster fire gif and tell them they are a loser
-- hitting enter shouldn't trigger a new game
-  - new game button has focus when you click it to start the game
-    - easy to starting typing and hit enter to submit answer but this causes a new game to start!
 - list of 2309 words needs to be expanded
   - there are too many common words that are not accepted as valid answers
 - when a player enters a letter an animation causes the tile to rotate and the border radius changes
