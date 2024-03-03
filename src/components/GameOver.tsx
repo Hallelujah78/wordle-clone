@@ -42,7 +42,13 @@ const GameOver: React.FC<GameOverProps> = ({ startGame, isGameOver }) => {
           alt="floating dumpster on fire"
         />
       </div>
-      <button onClick={startGame}>New Game</button>
+      <motion.button
+        initial={{ backgroundPosition: "0% 0%" }}
+        whileHover={{ backgroundPosition: "200% 0%" }}
+        onClick={startGame}
+      >
+        New Game
+      </motion.button>
       <audio ref={audioRef} src="you_lose.mp3"></audio>
     </Wrapper>
   );
@@ -61,13 +67,25 @@ const Wrapper = styled.div`
   border-radius: 50%;
 
   button {
+    background-image: linear-gradient(
+      to right,
+      #e43a15 0%,
+      #e65245 51%,
+      #e0a395 100%
+    );
+    background-size: 200% 200%;
+    transition: 0.5s;
+    box-shadow: 0 0 20px #eee;
     position: absolute;
     bottom: 12%;
     left: 50%;
     transform: translateX(-50%);
     font-size: calc(1.25rem + 0.390625vw);
-    padding: 0.5rem 0.75rem;
+    padding: 0.5rem 1.5rem;
     border-radius: 1rem;
+    border: none;
+    color: white;
+    cursor: pointer;
   }
   h1 {
     position: absolute;

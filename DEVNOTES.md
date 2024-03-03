@@ -338,7 +338,7 @@ export default Shade;
 
 ### Todo
 
-- when a player loses we show them a dumpster fire gif and tell them they are a loser
+- when a player loses we show them a dumpster fire gif and tell them they are a loser **DONE!**
 - list of 2309 words needs to be expanded
   - there are too many common words that are not accepted as valid answers
 - when a player enters a letter an animation causes the tile to rotate and the border radius changes
@@ -346,4 +346,8 @@ export default Shade;
 - icon for the app
 - link to my portfolio
 - add cypress testing
-- my 'you lose' font: https://fontstruct.com/fontstructions/show/1957929/hyper-street-fighter-2-anniversary-edition-2
+- credit the font & gif creators with links to their stuff
+- once the screen height is below 690px the keyboard starts to be obscured in my Wurdil app
+  - NYT handle this by showing a 'please rotate your device' component
+  - we may want to handle heights down to 600px before requiring the user to rotate the device
+    - note the Nest Hub is 600px and can't be rotated

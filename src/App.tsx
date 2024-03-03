@@ -87,7 +87,7 @@ const App: React.FC = () => {
   const [answer, setAnswer] = useState<string>(() => {
     return words[getRandomArbitrary(0, words.length - 1)];
   });
-  const [isGameOver, setIsGameOver] = useState<boolean>(false);
+  const [isGameOver, setIsGameOver] = useState<boolean>(true);
   const [keyboardState, setKeyboardState] =
     useState<KeyType[]>(initialKeyboardState);
   const [isGuessComplete, setIsGuessComplete] = useState(
@@ -127,6 +127,7 @@ const App: React.FC = () => {
 
       if (event.key === "Enter" && !isGameOver) {
         // is correct answer
+
         if (guess === answer && !isGameOver) {
           // change keyboard colors
           updateKeyboard();
@@ -137,9 +138,7 @@ const App: React.FC = () => {
           setIsGameOver(true);
           toast("congrats you won!");
         } else if (!words.includes(guess)) {
-          toast("not a valid answer!", {
-            position: "bottom-center",
-          });
+          toast("not a valid answer!");
         }
         // guess must be valid word but incorrect
         else if (currentGuessIndex === 5) {
@@ -148,7 +147,7 @@ const App: React.FC = () => {
           updateKeyboard();
           // that was your last guess
           setIsGameOver(true);
-          toast(`Bad luck! The correct answer was ${answer.toUpperCase()}`);
+          toast(`The Answer Was ${answer.toUpperCase()}`);
         } else {
           newIsGuessComplete[currentGuessIndex] = true;
           setIsGuessComplete(newIsGuessComplete);
