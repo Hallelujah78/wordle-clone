@@ -24,7 +24,7 @@ const GameOver: React.FC<GameOverProps> = ({ startGame }) => {
       initial={{ x: "-50%", y: "-100vh" }}
       animate={{ y: 0, zIndex: 99 }}
     >
-      <h1>Game Over</h1>
+      <h1>GAME OVER</h1>
       <div className="image-container">
         <img
           src={lostGif}
@@ -54,6 +54,11 @@ const Wrapper = styled.div`
   }
   h1 {
     position: absolute;
+    font-family: "mario", sans-serif;
+    top: 10%;
+    left: 20%;
+    z-index: 999;
+    font-size: calc(1.25rem + 0.390625vw);
   }
 
   color: black;

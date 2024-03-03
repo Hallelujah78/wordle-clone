@@ -1,4 +1,12 @@
-html,
-* {
-    --keyBg: #808080;
-}
+ @font-face {
+     font-family: "mario";
+     src: url("../assets/font/MarioWorldPixelColor-3zBwX.ttf") format('truetype');
+
+ }
+
+ html,
+ * {
+     --keyBg: #808080;
+
+
+ }

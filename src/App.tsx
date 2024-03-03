@@ -87,7 +87,7 @@ const App: React.FC = () => {
   const [answer, setAnswer] = useState<string>(() => {
     return words[getRandomArbitrary(0, words.length - 1)];
   });
-  const [isGameOver, setIsGameOver] = useState<boolean>(false);
+  const [isGameOver, setIsGameOver] = useState<boolean>(true);
   const [keyboardState, setKeyboardState] =
     useState<KeyType[]>(initialKeyboardState);
   const [isGuessComplete, setIsGuessComplete] = useState(
