@@ -21,6 +21,7 @@ import { words } from "./data/data.ts";
 // components
 import Keyboard from "./components/Keyboard.tsx";
 import Guess from "./components/Guess.tsx";
+import GameOver from "./components/GameOver.tsx";
 
 export type GuessType = [string, string, string, string, string];
 type Guesses = [
@@ -289,6 +290,7 @@ const App: React.FC = () => {
         >
           Guess the first word!
         </motion.div>
+        {isGameOver && <GameOver startGame={startGame} />}
       </Wrapper>
     </>
   );

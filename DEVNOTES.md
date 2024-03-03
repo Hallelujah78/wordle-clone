@@ -342,7 +342,8 @@ export default Shade;
 - list of 2309 words needs to be expanded
   - there are too many common words that are not accepted as valid answers
 - when a player enters a letter an animation causes the tile to rotate and the border radius changes
-  - this animation should not cause the letter to rotate as that is jarring I think
+  - this animation should not cause the letter to rotate as that is jarring I think **DONE!**
 - icon for the app
 - link to my portfolio
 - add cypress testing
+- my 'you lose' font: https://fontstruct.com/fontstructions/show/1957929/hyper-street-fighter-2-anniversary-edition-2
