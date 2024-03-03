@@ -87,7 +87,7 @@ const App: React.FC = () => {
   const [answer, setAnswer] = useState<string>(() => {
     return words[getRandomArbitrary(0, words.length - 1)];
   });
-  const [isGameOver, setIsGameOver] = useState<boolean>(true);
+  const [isGameOver, setIsGameOver] = useState<boolean>(false);
   const [keyboardState, setKeyboardState] =
     useState<KeyType[]>(initialKeyboardState);
   const [isGuessComplete, setIsGuessComplete] = useState(
@@ -290,7 +290,9 @@ const App: React.FC = () => {
         >
           Guess the first word!
         </motion.div>
-        {isGameOver && <GameOver startGame={startGame} />}
+        {isGameOver && (
+          <GameOver startGame={startGame} isGameOver={isGameOver} />
+        )}
       </Wrapper>
     </>
   );

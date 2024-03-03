@@ -1,5 +1,5 @@
 // react
-
+import { useRef, useEffect } from "react";
 // third party
 import styled from "styled-components";
 import { motion } from "framer-motion";
@@ -15,16 +15,26 @@ import lostGif from "../assets/floating_dumpster.gif";
 //models
 interface GameOverProps {
   startGame: () => void;
+  isGameOver: boolean;
 }
 
-const GameOver: React.FC<GameOverProps> = ({ startGame }) => {
+const GameOver: React.FC<GameOverProps> = ({ startGame, isGameOver }) => {
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  useEffect(() => {
+    const currentAudioRef = audioRef.current;
+    if (isGameOver) {
+      currentAudioRef!.play();
+    }
+  }, [isGameOver]);
+
   return (
     <Wrapper
       as={motion.div}
       initial={{ x: "-50%", y: "-100vh" }}
       animate={{ y: 0, zIndex: 99 }}
     >
-      <h1>GAME OVER</h1>
+      <h1>YOU LOSE</h1>
       <div className="image-container">
         <img
           src={lostGif}
@@ -33,6 +43,7 @@ const GameOver: React.FC<GameOverProps> = ({ startGame }) => {
         />
       </div>
       <button onClick={startGame}>New Game</button>
+      <audio ref={audioRef} src="you_lose.mp3"></audio>
     </Wrapper>
   );
 };
@@ -51,12 +62,19 @@ const Wrapper = styled.div`
 
   button {
     position: absolute;
+    bottom: 12%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: calc(1.25rem + 0.390625vw);
+    padding: 0.5rem 0.75rem;
+    border-radius: 1rem;
   }
   h1 {
     position: absolute;
     font-family: "mario", sans-serif;
-    top: 10%;
-    left: 20%;
+    top: 17%;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 999;
     font-size: calc(1.25rem + 0.390625vw);
   }
@@ -69,7 +87,6 @@ const Wrapper = styled.div`
   }
   .lose-image {
     width: 85vw;
-
     border-radius: 50%;
   }
 `;
