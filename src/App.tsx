@@ -247,8 +247,6 @@ const App: React.FC = () => {
       <Wrapper>
         <nav>
           <div className="nav-center">
-            <div></div>
-
             <motion.div
               initial={{ y: -250 }}
               animate={{ y: 0 }}
@@ -300,6 +298,7 @@ const App: React.FC = () => {
 export default App;
 
 const Wrapper = styled.div`
+  display: grid;
   position: relative;
   user-select: none;
   height: 100vh;
@@ -308,35 +307,35 @@ const Wrapper = styled.div`
   nav {
     border-bottom: 1px solid gray;
     box-sizing: border-box;
-    height: 4rem;
+    height: 3rem;
   }
   .nav-center {
     height: 100%;
-    display: grid;
-    grid-template-columns: 0.5fr 2fr 0.5fr;
-    place-content: center;
     box-sizing: border-box;
     width: 95vw;
-    vertical-align: middle;
     margin: auto;
   }
   div.title {
     display: grid;
-    text-align: center;
     place-content: center;
-    height: 4rem;
+    height: 3rem;
     font-size: calc(1.25rem + 0.390625vw);
   }
 
   section {
-    height: calc(100vh - 4rem);
+    height: calc(100vh - 3rem);
     display: grid;
-    place-content: center;
     max-width: 100%;
+    align-content: start;
   }
 
   .guess-container {
+    width: 85vw;
+
+    display: grid;
+    place-content: center;
     margin: auto;
+    margin-top: 1.5rem;
   }
   .button-container {
     display: flex;

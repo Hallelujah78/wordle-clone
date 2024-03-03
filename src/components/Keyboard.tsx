@@ -57,10 +57,11 @@ const Keyboard: React.FC<KeyboardProps> = ({ keyboardState }) => {
 export default Keyboard;
 
 const Wrapper = styled.div`
-  margin-top: 2rem;
+  margin-top: 1rem;
+
   width: 98vw;
   text-align: center;
-  height: 25vh;
+  height: auto;
   .row {
     display: flex;
     place-content: center;

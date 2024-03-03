@@ -78,7 +78,7 @@ const Wrapper = styled.div`
   width: 3.25rem;
   position: relative;
   display: inline-block;
-  border: 2px solid transparent;
+  border: 1px solid transparent;
   font-size: 2.25rem;
   text-align: center;
   line-height: 3.25rem;
@@ -105,9 +105,9 @@ const Wrapper = styled.div`
     width: 3.25rem;
     position: absolute;
     display: inline-block;
-    top: -4px;
+    top: -3px;
     right: -0.27rem;
-    border: 2px solid gray;
+    border: 1px solid darkgray;
     font-size: 2.25rem;
     text-align: center;
     line-height: 3.25rem;

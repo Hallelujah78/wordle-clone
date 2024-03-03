@@ -40,7 +40,7 @@ const Key: React.FC<KeyProps> = ({ keyChar, icon, bgColor, delay, xStart }) => {
       onClick={clickHandler}
       fontSize={keyChar === "Enter" ? ".75rem" : "1.25rem"}
       width={
-        keyChar === "Enter" || keyChar === "Backspace" ? "3.625rem" : "2.5rem"
+        keyChar === "Enter" || keyChar === "Backspace" ? "3.225rem" : "2rem"
       }
     >
       {icon ? icon : keyChar.toUpperCase()}
@@ -63,8 +63,8 @@ const Wrapper = styled.div.attrs<KeyDivProps>((props) => ({
   font-weight: 700;
   display: grid;
   background-color: #818384;
-  height: 3.5rem;
-  margin: 0.225rem 0.175rem;
+  height: 3.75rem;
+  margin: 0.225rem 0.225rem;
   border-radius: 5px;
 
   cursor: pointer;
