@@ -39,7 +39,7 @@ const GameOver: React.FC<GameOverProps> = ({
     <Wrapper
       style={{
         width: `${isPortrait ? "85vw" : "85vh"}`,
-        top: `${isPortrait ? "8vw" : "8vh"}`,
+        top: `${isPortrait ? "12vh" : "12vh"}`,
       }}
       as={motion.div}
       initial={{ x: "-50%", y: "-100vh" }}
@@ -50,7 +50,7 @@ const GameOver: React.FC<GameOverProps> = ({
         <img
           style={{
             width: `${isPortrait ? "85vw" : "85vh"}`,
-            top: `${isPortrait ? "7vw" : "7vh"}`,
+            top: `${isPortrait ? "12vh" : "12vh"}`,
           }}
           src={lostGif}
           className="lose-image"
@@ -109,7 +109,7 @@ const Wrapper = styled.div`
     top: 17%;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 999;
+    z-index: 99;
     font-size: calc(1.25rem + 0.390625vw);
   }
 
@@ -121,5 +121,6 @@ const Wrapper = styled.div`
   }
   .lose-image {
     border-radius: 50%;
+    top: 50vh;
   }
 `;

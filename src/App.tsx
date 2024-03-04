@@ -23,6 +23,8 @@ import Keyboard from "./components/Keyboard.tsx";
 import Guess from "./components/Guess.tsx";
 import GameOver from "./components/GameOver.tsx";
 import SmallLandscape from "./components/SmallLandscape.tsx";
+import Navbar from "./components/Navbar.tsx";
+import Information from "./components/Information.tsx";
 
 // state
 import { initialKeyboardState } from "./state/state.ts";
@@ -31,6 +33,7 @@ import { initialGuessCompletionState } from "./state/state.ts";
 
 // models
 import { KeyType } from "./models/KeyType.model.ts";
+import useModal from "./hooks/useModal.ts";
 
 const App: React.FC = () => {
   const [guesses, setGuesses] = useState(initialGuessState);
@@ -48,6 +51,7 @@ const App: React.FC = () => {
   const [isPortrait, setIsPortrait] = useState<boolean>(() => {
     return window.matchMedia("(orientation: portrait)").matches;
   });
+  const { isVisible, show, close } = useModal();
 
   const getOrientationAndHeight = (event: MediaQueryListEvent) => {
     setIsPortrait(event.matches);
@@ -212,18 +216,10 @@ const App: React.FC = () => {
       <GlobalStyle />
       <Reset />
       <ToastContainer />
+
       <Wrapper>
-        <nav>
-          <div className="nav-center">
-            <motion.div
-              initial={{ y: -250 }}
-              animate={{ y: 0 }}
-              className="title lilita-one-regular"
-            >
-              Wurdil - Dumpster Fire Edition
-            </motion.div>
-          </div>
-        </nav>
+        {isVisible && <Information close={close} />}
+        <Navbar show={show} />
         <section>
           <motion.div
             initial={{ rotateX: -180 }}
@@ -279,23 +275,6 @@ const Wrapper = styled.div`
   height: 100vh;
   max-height: 100vh;
   overflow: hidden;
-  nav {
-    border-bottom: 1px solid gray;
-    box-sizing: border-box;
-    height: 3rem;
-  }
-  .nav-center {
-    height: 100%;
-    box-sizing: border-box;
-    width: 95vw;
-    margin: auto;
-  }
-  div.title {
-    display: grid;
-    place-content: center;
-    height: 3rem;
-    font-size: calc(1.25rem + 0.390625vw);
-  }
 
   section {
     height: calc(100vh - 3rem);

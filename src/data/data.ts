@@ -1,4 +1,5 @@
 export const words: string[] = [
+  "adieu",
   "cigar",
   "rebut",
   "sissy",
