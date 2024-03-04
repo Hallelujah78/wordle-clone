@@ -79,7 +79,6 @@ const Wrapper = styled.div`
   display: grid;
   place-content: center;
   position: absolute;
-
   left: 50vw;
   border-radius: 50%;
 

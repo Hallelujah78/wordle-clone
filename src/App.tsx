@@ -22,6 +22,7 @@ import { words } from "./data/data.ts";
 import Keyboard from "./components/Keyboard.tsx";
 import Guess from "./components/Guess.tsx";
 import GameOver from "./components/GameOver.tsx";
+import SmallLandscape from "./components/SmallLandscape.tsx";
 
 // state
 import { initialKeyboardState } from "./state/state.ts";
@@ -49,7 +50,6 @@ const App: React.FC = () => {
   });
 
   const getOrientationAndHeight = (event: MediaQueryListEvent) => {
-    alert(event.matches);
     setIsPortrait(event.matches);
   };
 
@@ -263,6 +263,7 @@ const App: React.FC = () => {
             isWin={isWin}
           />
         )}
+        {window.innerHeight < 600 ? <SmallLandscape /> : null}
       </Wrapper>
       <div>{answer}</div>
     </>
