@@ -23,73 +23,23 @@ import Keyboard from "./components/Keyboard.tsx";
 import Guess from "./components/Guess.tsx";
 import GameOver from "./components/GameOver.tsx";
 
-export type GuessType = [string, string, string, string, string];
-type Guesses = [
-  GuessType,
-  GuessType,
-  GuessType,
-  GuessType,
-  GuessType,
-  GuessType
-];
+// state
+import { initialKeyboardState } from "./state/state.ts";
+import { initialGuessState } from "./state/state.ts";
+import { initialGuessCompletionState } from "./state/state.ts";
 
-export type KeyType = {
-  key: string;
-  color: string | null;
-};
-
-const initialKeyboardState: KeyType[] = [
-  { key: "a", color: null },
-  { key: "b", color: null },
-  { key: "c", color: null },
-  { key: "d", color: null },
-  { key: "e", color: null },
-  { key: "f", color: null },
-  { key: "g", color: null },
-  { key: "h", color: null },
-  { key: "i", color: null },
-  { key: "j", color: null },
-  { key: "k", color: null },
-  { key: "l", color: null },
-  { key: "m", color: null },
-  { key: "n", color: null },
-  { key: "o", color: null },
-  { key: "p", color: null },
-  { key: "q", color: null },
-  { key: "r", color: null },
-  { key: "s", color: null },
-  { key: "t", color: null },
-  { key: "u", color: null },
-  { key: "v", color: null },
-  { key: "w", color: null },
-  { key: "x", color: null },
-  { key: "y", color: null },
-  { key: "z", color: null },
-  { key: "Backspace", color: null },
-  { key: "Enter", color: null },
-];
-
-const initialGuessCompletionState = [false, false, false, false, false, false];
-
-const initialGuessState: Guesses = [
-  ["", "", "", "", ""],
-  ["", "", "", "", ""],
-  ["", "", "", "", ""],
-  ["", "", "", "", ""],
-  ["", "", "", "", ""],
-  ["", "", "", "", ""],
-];
+// models
+import { KeyType } from "./models/KeyType.model.ts";
 
 const App: React.FC = () => {
-  const [guesses, setGuesses] = useState<Guesses>(initialGuessState);
-  const [currentGuessIndex, setCurrentGuessIndex] = useState<number>(0);
-  const [currentLetterIndex, setCurrentLetterIndex] = useState<number>(0);
+  const [guesses, setGuesses] = useState(initialGuessState);
+  const [currentGuessIndex, setCurrentGuessIndex] = useState(0);
+  const [currentLetterIndex, setCurrentLetterIndex] = useState(0);
   const [answer, setAnswer] = useState<string>(() => {
     return words[getRandomArbitrary(0, words.length - 1)];
   });
-  const [isGameOver, setIsGameOver] = useState<boolean>(false);
-  const [keyboardState, setKeyboardState] =
-    useState<KeyType[]>(initialKeyboardState);
+  const [isGameOver, setIsGameOver] = useState(false);
+  const [keyboardState, setKeyboardState] = useState(initialKeyboardState);
   const [isGuessComplete, setIsGuessComplete] = useState(
     initialGuessCompletionState
   );

@@ -28,8 +28,8 @@ const GameOver: React.FC<GameOverProps> = ({
 
   useEffect(() => {
     const currentAudioRef = audioRef.current;
-    if (isGameOver) {
-      currentAudioRef!.play();
+    if (isGameOver && currentAudioRef) {
+      currentAudioRef.play();
     }
   }, [isGameOver]);
 

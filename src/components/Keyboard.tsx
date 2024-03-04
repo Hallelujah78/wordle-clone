@@ -12,7 +12,7 @@ import { keys } from "../data/keys";
 import Key from "./Key.tsx";
 
 //models
-import { KeyType } from "../App.tsx";
+import { KeyType } from "../models/KeyType.model.ts";
 
 interface KeyboardProps {
   keyboardState: KeyType[];
@@ -58,7 +58,6 @@ export default Keyboard;
 
 const Wrapper = styled.div`
   margin-top: 1rem;
-
   width: 98vw;
   text-align: center;
   height: auto;
