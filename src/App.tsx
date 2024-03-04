@@ -87,12 +87,13 @@ const App: React.FC = () => {
   const [answer, setAnswer] = useState<string>(() => {
     return words[getRandomArbitrary(0, words.length - 1)];
   });
-  const [isGameOver, setIsGameOver] = useState<boolean>(true);
+  const [isGameOver, setIsGameOver] = useState<boolean>(false);
   const [keyboardState, setKeyboardState] =
     useState<KeyType[]>(initialKeyboardState);
   const [isGuessComplete, setIsGuessComplete] = useState(
     initialGuessCompletionState
   );
+  const [isWin, setIsWin] = useState(false);
 
   const updateKeyboard = useCallback(() => {
     // guesses, answer
@@ -136,6 +137,7 @@ const App: React.FC = () => {
           setIsGuessComplete(newIsGuessComplete);
           setCurrentGuessIndex((prev) => (prev < 5 ? prev + 1 : prev));
           setIsGameOver(true);
+          setIsWin(true);
           toast("congrats you won!");
         } else if (!words.includes(guess)) {
           toast("not a valid answer!");
@@ -147,6 +149,7 @@ const App: React.FC = () => {
           updateKeyboard();
           // that was your last guess
           setIsGameOver(true);
+          setIsWin(false);
           toast(`The Answer Was ${answer.toUpperCase()}`);
         } else {
           newIsGuessComplete[currentGuessIndex] = true;
@@ -224,6 +227,7 @@ const App: React.FC = () => {
     setCurrentGuessIndex(0);
     setCurrentLetterIndex(0);
     setIsGameOver(false);
+    setIsWin(false);
     setAnswer(words[getRandomArbitrary(0, words.length - 1)]);
   };
 
@@ -288,9 +292,14 @@ const App: React.FC = () => {
           Guess the first word!
         </motion.div>
         {isGameOver && (
-          <GameOver startGame={startGame} isGameOver={isGameOver} />
+          <GameOver
+            startGame={startGame}
+            isGameOver={isGameOver}
+            isWin={isWin}
+          />
         )}
       </Wrapper>
+      <div>{answer}</div>
     </>
   );
 };

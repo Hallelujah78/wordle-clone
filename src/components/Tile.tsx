@@ -16,6 +16,8 @@ const variants = {
   notCompleteFront: { rotateX: 0 },
   completeBack: { rotateX: 0 },
   notCompleteBack: { rotateX: -180 },
+  gameOver: { x: "-100vw", rotateX: 360, rotateY: 360 },
+
   hasLetter: {
     scale: [1, 1.03, 0.97, 1],
     borderRadius: ["0%", "50%", "0%"],

@@ -16,9 +16,14 @@ import lostGif from "../assets/floating_dumpster.gif";
 interface GameOverProps {
   startGame: () => void;
   isGameOver: boolean;
+  isWin: boolean;
 }
 
-const GameOver: React.FC<GameOverProps> = ({ startGame, isGameOver }) => {
+const GameOver: React.FC<GameOverProps> = ({
+  startGame,
+  isGameOver,
+  isWin,
+}) => {
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
@@ -34,7 +39,7 @@ const GameOver: React.FC<GameOverProps> = ({ startGame, isGameOver }) => {
       initial={{ x: "-50%", y: "-100vh" }}
       animate={{ y: 0, zIndex: 99 }}
     >
-      <h1>YOU LOSE</h1>
+      <h1>{isGameOver && !isWin ? "YOU LOSE" : "YOU WIN"}</h1>
       <div className="image-container">
         <img
           src={lostGif}
@@ -49,7 +54,10 @@ const GameOver: React.FC<GameOverProps> = ({ startGame, isGameOver }) => {
       >
         New Game
       </motion.button>
-      <audio ref={audioRef} src="you_lose.mp3"></audio>
+      <audio
+        ref={audioRef}
+        src={isGameOver && !isWin ? "you_lose.mp3" : "you_win.mp3"}
+      ></audio>
     </Wrapper>
   );
 };
