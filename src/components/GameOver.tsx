@@ -17,12 +17,14 @@ interface GameOverProps {
   startGame: () => void;
   isGameOver: boolean;
   isWin: boolean;
+  isPortrait: boolean;
 }
 
 const GameOver: React.FC<GameOverProps> = ({
   startGame,
   isGameOver,
   isWin,
+  isPortrait,
 }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
 
@@ -35,6 +37,10 @@ const GameOver: React.FC<GameOverProps> = ({
 
   return (
     <Wrapper
+      style={{
+        width: `${isPortrait ? "85vw" : "85vh"}`,
+        top: `${isPortrait ? "8vw" : "8vh"}`,
+      }}
       as={motion.div}
       initial={{ x: "-50%", y: "-100vh" }}
       animate={{ y: 0, zIndex: 99 }}
@@ -42,6 +48,10 @@ const GameOver: React.FC<GameOverProps> = ({
       <h1>{isGameOver && !isWin ? "YOU LOSE" : "YOU WIN"}</h1>
       <div className="image-container">
         <img
+          style={{
+            width: `${isPortrait ? "85vw" : "85vh"}`,
+            top: `${isPortrait ? "7vw" : "7vh"}`,
+          }}
           src={lostGif}
           className="lose-image"
           alt="floating dumpster on fire"
@@ -70,7 +80,6 @@ const Wrapper = styled.div`
   place-content: center;
   position: absolute;
 
-  top: 20vh;
   left: 50vw;
   border-radius: 50%;
 
@@ -112,7 +121,6 @@ const Wrapper = styled.div`
     border-radius: 50%;
   }
   .lose-image {
-    width: 85vw;
     border-radius: 50%;
   }
 `;

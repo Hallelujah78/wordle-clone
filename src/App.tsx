@@ -38,12 +38,20 @@ const App: React.FC = () => {
   const [answer, setAnswer] = useState<string>(() => {
     return words[getRandomArbitrary(0, words.length - 1)];
   });
-  const [isGameOver, setIsGameOver] = useState(false);
+  const [isGameOver, setIsGameOver] = useState(true);
   const [keyboardState, setKeyboardState] = useState(initialKeyboardState);
   const [isGuessComplete, setIsGuessComplete] = useState(
     initialGuessCompletionState
   );
   const [isWin, setIsWin] = useState(false);
+  const [isPortrait, setIsPortrait] = useState<boolean>(() => {
+    return window.matchMedia("(orientation: portrait)").matches;
+  });
+
+  const getOrientationAndHeight = (event: MediaQueryListEvent) => {
+    alert(event.matches);
+    setIsPortrait(event.matches);
+  };
 
   const updateKeyboard = useCallback(() => {
     // guesses, answer
@@ -185,11 +193,17 @@ const App: React.FC = () => {
     document.addEventListener("keydown", alphaKeypressHandler);
     document.addEventListener("keydown", deleteKeyHandler);
     document.addEventListener("keydown", enterKeyHandler);
+    window
+      .matchMedia("(orientation: portrait)")
+      .addEventListener("change", getOrientationAndHeight);
 
     return () => {
       document.removeEventListener("keydown", alphaKeypressHandler);
       document.removeEventListener("keydown", deleteKeyHandler);
       document.removeEventListener("keydown", enterKeyHandler);
+      window
+        .matchMedia("(orientation: portrait)")
+        .removeEventListener("change", getOrientationAndHeight);
     };
   }, [alphaKeypressHandler, deleteKeyHandler, enterKeyHandler]);
 
@@ -243,6 +257,7 @@ const App: React.FC = () => {
         </motion.div>
         {isGameOver && (
           <GameOver
+            isPortrait={isPortrait}
             startGame={startGame}
             isGameOver={isGameOver}
             isWin={isWin}

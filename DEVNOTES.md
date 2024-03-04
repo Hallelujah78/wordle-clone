@@ -338,15 +338,23 @@ export default Shade;
 
 ### Todo
 
-- when a player loses we show them a dumpster fire gif and tell them they are a loser **DONE!**
+- take the bull by the horns: our gif size on mobile versus desktop or portrait/landscape if you want
+
+  - if the viewport width > height, then size the gif based on height
+  - else size the gif based on width
+
 - list of 2309 words needs to be expanded
+
   - there are too many common words that are not accepted as valid answers
-- when a player enters a letter an animation causes the tile to rotate and the border radius changes
-  - this animation should not cause the letter to rotate as that is jarring I think **DONE!**
+
 - icon for the app
+
 - link to my portfolio
+
 - add cypress testing
+
 - credit the font & gif creators with links to their stuff
+
 - once the screen height is below 690px the keyboard starts to be obscured in my Wurdil app
   - NYT handle this by showing a 'please rotate your device' component
   - we may want to handle heights down to 600px before requiring the user to rotate the device
