@@ -3,6 +3,7 @@
 // third party
 import styled from "styled-components";
 import { motion } from "framer-motion";
+import { KeyType } from "../models/KeyType.model";
 // utils
 
 // data
@@ -10,7 +11,7 @@ import { motion } from "framer-motion";
 // components
 
 interface KeyProps {
-  keyChar: string;
+  keyChar: KeyType;
   icon?: React.ReactNode | null;
   bgColor: string | null;
   delay: number;
@@ -20,7 +21,7 @@ interface KeyProps {
 const Key: React.FC<KeyProps> = ({ keyChar, icon, bgColor, delay, xStart }) => {
   const clickHandler = () => {
     const clickOrTouchEvent = new KeyboardEvent("keydown", {
-      key: keyChar,
+      key: keyChar.key,
     });
     document.dispatchEvent(clickOrTouchEvent);
   };
@@ -38,12 +39,14 @@ const Key: React.FC<KeyProps> = ({ keyChar, icon, bgColor, delay, xStart }) => {
       }}
       style={{ backgroundColor: `${bgColor ? bgColor : "#818384"}` }}
       onClick={clickHandler}
-      fontSize={keyChar === "Enter" ? ".75rem" : "1.25rem"}
+      fontSize={keyChar.key === "Enter" ? ".75rem" : "1.25rem"}
       width={
-        keyChar === "Enter" || keyChar === "Backspace" ? "3.225rem" : "2rem"
+        keyChar.key === "Enter" || keyChar.key === "Backspace"
+          ? "3.225rem"
+          : "2rem"
       }
     >
-      {icon ? icon : keyChar.toUpperCase()}
+      {icon ? icon : keyChar.key.toUpperCase()}
     </Wrapper>
   );
 };

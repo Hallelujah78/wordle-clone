@@ -312,7 +312,7 @@ const Wrapper = styled.div`
     text-align: center;
     position: absolute;
     left: 50%;
-    top: 35%;
+    top: 15vh;
     padding: 1rem 1.5rem;
     border-radius: 0.5rem;
     width: fit-content;

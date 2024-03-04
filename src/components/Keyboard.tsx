@@ -7,7 +7,7 @@ import { TbBackspaceFilled } from "react-icons/tb";
 // utils
 
 // data
-import { keys } from "../data/keys";
+
 // components
 import Key from "./Key.tsx";
 
@@ -20,10 +20,10 @@ interface KeyboardProps {
 
 const Keyboard: React.FC<KeyboardProps> = ({ keyboardState }) => {
   const renderKeys = (start: number, end: number) => {
-    return keys.map((keyChar, index) => {
+    return keyboardState.map((keyChar, index) => {
       if (index >= start && index <= end) {
         const keyToUpdate = keyboardState.find((keyObj) => {
-          return keyObj.key === keyChar;
+          return keyObj.key === keyChar.key;
         })!;
         const bgColor = keyToUpdate.color;
         const delay = index * 0.05;
@@ -33,10 +33,10 @@ const Keyboard: React.FC<KeyboardProps> = ({ keyboardState }) => {
             xStart={xStart}
             delay={delay}
             bgColor={bgColor}
-            key={keyChar}
+            key={keyChar.key}
             keyChar={keyChar}
             icon={
-              keyChar === "Backspace" ? (
+              keyChar.key === "Backspace" ? (
                 <TbBackspaceFilled className="icon" />
               ) : null
             }
