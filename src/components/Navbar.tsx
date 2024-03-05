@@ -55,5 +55,6 @@ const Wrapper = styled.nav`
     transform: translateY(-50%);
     right: 1rem;
     font-size: calc(1.75rem + 0.390625vw);
+    cursor: pointer;
   }
 `;

@@ -218,7 +218,7 @@ const App: React.FC = () => {
       <ToastContainer />
 
       <Wrapper>
-        {isVisible && <Information close={close} />}
+        {isVisible && <Information isVisible={isVisible} close={close} />}
         <Navbar show={show} />
         <section>
           <motion.div
