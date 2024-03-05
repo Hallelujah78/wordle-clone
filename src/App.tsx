@@ -16,7 +16,7 @@ import { motion } from "framer-motion";
 import { getRandomArbitrary } from "./utils/utils";
 
 // data
-import { words } from "./data/data.ts";
+import { answers, valid } from "./data/data.ts";
 
 // components
 import Keyboard from "./components/Keyboard.tsx";
@@ -40,7 +40,7 @@ const App: React.FC = () => {
   const [currentGuessIndex, setCurrentGuessIndex] = useState(0);
   const [currentLetterIndex, setCurrentLetterIndex] = useState(0);
   const [answer, setAnswer] = useState<string>(() => {
-    return words[getRandomArbitrary(0, words.length - 1)];
+    return answers[getRandomArbitrary(0, answers.length - 1)];
   });
   const [isGameOver, setIsGameOver] = useState(false);
   const [keyboardState, setKeyboardState] = useState(initialKeyboardState);
@@ -101,7 +101,7 @@ const App: React.FC = () => {
           setIsGameOver(true);
           setIsWin(true);
           toast("congrats you won!");
-        } else if (!words.includes(guess)) {
+        } else if (!valid.includes(guess)) {
           toast("not a valid answer!");
         }
         // guess must be valid word but incorrect
@@ -190,7 +190,7 @@ const App: React.FC = () => {
     setCurrentLetterIndex(0);
     setIsGameOver(false);
     setIsWin(false);
-    setAnswer(words[getRandomArbitrary(0, words.length - 1)]);
+    setAnswer(answers[getRandomArbitrary(0, answers.length - 1)]);
   };
 
   useEffect(() => {

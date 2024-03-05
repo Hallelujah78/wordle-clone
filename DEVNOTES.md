@@ -342,8 +342,7 @@ export default Shade;
 
   - there are too many common words that are not accepted as valid answers
 
-- icon for the app
-
-- link to my portfolio
-
 - add cypress testing
+
+- need to use event handler to get the height of the viewport
+  - using window.innerHeight < 600 to conditionally render is not good!
