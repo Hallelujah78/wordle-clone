@@ -51,10 +51,15 @@ const App: React.FC = () => {
   const [isPortrait, setIsPortrait] = useState<boolean>(() => {
     return window.matchMedia("(orientation: portrait)").matches;
   });
+  const [windowHeight, setWindowHeight] = useState(window.innerHeight);
   const { isVisible, show, close } = useModal();
 
-  const getOrientationAndHeight = (event: MediaQueryListEvent) => {
+  const getDeviceOrientation = (event: MediaQueryListEvent) => {
     setIsPortrait(event.matches);
+  };
+
+  const getWindowHeight = () => {
+    setWindowHeight(window.innerHeight);
   };
 
   const updateKeyboard = useCallback(() => {
@@ -199,7 +204,8 @@ const App: React.FC = () => {
     document.addEventListener("keydown", enterKeyHandler);
     window
       .matchMedia("(orientation: portrait)")
-      .addEventListener("change", getOrientationAndHeight);
+      .addEventListener("change", getDeviceOrientation);
+    window.addEventListener("resize", getWindowHeight);
 
     return () => {
       document.removeEventListener("keydown", alphaKeypressHandler);
@@ -207,7 +213,7 @@ const App: React.FC = () => {
       document.removeEventListener("keydown", enterKeyHandler);
       window
         .matchMedia("(orientation: portrait)")
-        .removeEventListener("change", getOrientationAndHeight);
+        .removeEventListener("change", getDeviceOrientation);
     };
   }, [alphaKeypressHandler, deleteKeyHandler, enterKeyHandler]);
 
@@ -259,7 +265,7 @@ const App: React.FC = () => {
             isWin={isWin}
           />
         )}
-        {window.innerHeight < 600 ? <SmallLandscape /> : null}
+        {windowHeight < 600 ? <SmallLandscape /> : null}
       </Wrapper>
       <div>{answer}</div>
     </>
