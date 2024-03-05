@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const useModal = () => {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
 
   const show = () => {
     setIsVisible(true);

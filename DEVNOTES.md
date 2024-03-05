@@ -347,5 +347,3 @@ export default Shade;
 - link to my portfolio
 
 - add cypress testing
-
-- credit the font & gif creators with links to their stuff
