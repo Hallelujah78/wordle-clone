@@ -214,6 +214,7 @@ const App: React.FC = () => {
       window
         .matchMedia("(orientation: portrait)")
         .removeEventListener("change", getDeviceOrientation);
+      window.removeEventListener("resize", getWindowHeight);
     };
   }, [alphaKeypressHandler, deleteKeyHandler, enterKeyHandler]);
 
