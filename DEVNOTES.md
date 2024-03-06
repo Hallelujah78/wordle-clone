@@ -347,3 +347,11 @@ export default Shade;
   - will require displaying 'new game' button elsewhere (middle of keyboard)
 
 - trim silence from the music track
+
+- fix this to use event (navbar):
+
+```js
+{
+  window.innerWidth < 460 ? "Wurdil DFE" : "Wurdil - Dumpster Fire Edition";
+}
+```

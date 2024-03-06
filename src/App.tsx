@@ -34,6 +34,7 @@ import { initialGuessCompletionState } from "./state/state.ts";
 // models
 import { KeyType } from "./models/KeyType.model.ts";
 import useModal from "./hooks/useModal.ts";
+import NewGameButton from "./components/NewGameButton.tsx";
 
 const App: React.FC = () => {
   const [guesses, setGuesses] = useState(initialGuessState);
@@ -52,6 +53,7 @@ const App: React.FC = () => {
     return window.matchMedia("(orientation: portrait)").matches;
   });
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+  const [isGameOverVisible, setIsGameOverVisible] = useState(true);
   const { isVisible, show, close } = useModal();
 
   const getDeviceOrientation = (event: MediaQueryListEvent) => {
@@ -104,6 +106,7 @@ const App: React.FC = () => {
           setIsGuessComplete(newIsGuessComplete);
           setCurrentGuessIndex((prev) => (prev < 5 ? prev + 1 : prev));
           setIsGameOver(true);
+          setIsGameOverVisible(true);
           setIsWin(true);
         } else if (!valid.includes(guess)) {
           toast("not a valid answer!");
@@ -114,6 +117,7 @@ const App: React.FC = () => {
           setIsGuessComplete(newIsGuessComplete);
           updateKeyboard();
           // that was your last guess
+          setIsGameOverVisible(true);
           setIsGameOver(true);
           setIsWin(false);
           toast(`The Answer Was ${answer.toUpperCase()}`);
@@ -260,14 +264,19 @@ const App: React.FC = () => {
           </motion.div>
         )}
 
-        {isGameOver && (
+        {isGameOver && isGameOverVisible && (
           <GameOver
             isPortrait={isPortrait}
             startGame={startGame}
             isGameOver={isGameOver}
             isWin={isWin}
+            setIsGameOverVisible={setIsGameOverVisible}
           />
         )}
+        {isGameOver && !isGameOverVisible && (
+          <NewGameButton startGame={startGame} />
+        )}
+
         {windowHeight < 600 ? <SmallLandscape /> : null}
       </Wrapper>
       <div>{answer}</div>

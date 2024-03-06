@@ -18,6 +18,7 @@ interface GameOverProps {
   isGameOver: boolean;
   isWin: boolean;
   isPortrait: boolean;
+  setIsGameOverVisible: (isVisible: boolean) => void;
 }
 
 const GameOver: React.FC<GameOverProps> = ({
@@ -25,6 +26,7 @@ const GameOver: React.FC<GameOverProps> = ({
   isGameOver,
   isWin,
   isPortrait,
+  setIsGameOverVisible,
 }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
 
@@ -69,6 +71,16 @@ const GameOver: React.FC<GameOverProps> = ({
       >
         New Game
       </motion.button>
+      <motion.button
+        className="close-button"
+        initial={{ backgroundPosition: "50% 0%" }}
+        whileHover={{ backgroundPosition: "200% 0%" }}
+        onClick={() => {
+          setIsGameOverVisible(false);
+        }}
+      >
+        Close
+      </motion.button>
       <audio
         ref={audioRef}
         src={isGameOver && !isWin ? "you_lose.mp3" : "you_win.mp3"}
@@ -94,23 +106,29 @@ const Wrapper = styled.div`
       rgba(218, 213, 201, 1) 90%,
       rgba(255, 121, 4, 1) 92%
     );
-    &:active,
-    &:hover {
-      box-shadow: 0 0 20px #eee;
-    }
+    min-width: 7rem;
     background-size: 200% 200%;
     transition: 0.5s;
     position: absolute;
-    bottom: 12%;
-    left: 50%;
+    bottom: 20%;
+    left: 30%;
     transform: translateX(-50%);
-    font-size: calc(1.25rem + 0.390625vw);
-    padding: 0.5rem 1.5rem;
+    font-size: calc(1rem + 0.390625vw);
+    padding: 0.4rem 0.7rem;
     border-radius: 1rem;
     border: none;
     color: white;
     cursor: pointer;
+    &:active,
+    &:hover {
+      box-shadow: 0 0 20px #eee;
+    }
   }
+  .close-button {
+    bottom: 20%;
+    left: 69%;
+  }
+
   h1 {
     position: absolute;
     font-family: "mario", sans-serif;
@@ -118,7 +136,7 @@ const Wrapper = styled.div`
     left: 50%;
     transform: translateX(-50%);
     z-index: 99;
-    font-size: calc(1.25rem + 0.390625vw);
+    font-size: calc(1rem + 0.390625vw);
   }
 
   color: black;
