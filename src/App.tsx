@@ -250,14 +250,17 @@ const App: React.FC = () => {
             <Keyboard keyboardState={keyboardState} />
           </div>
         </section>
-        <motion.div
-          initial={{ x: 0, y: 0, translateX: "-50%" }}
-          animate={{ display: "none" }}
-          transition={{ delay: 2, duration: 0.8 }}
-          className="start-game"
-        >
-          Guess the first word!
-        </motion.div>
+        {!isGameOver && (
+          <motion.div
+            initial={{ x: 0, y: 0, translateX: "-50%" }}
+            animate={{ display: "none" }}
+            transition={{ delay: 2, duration: 0.8 }}
+            className="start-game"
+          >
+            Guess the first word!
+          </motion.div>
+        )}
+
         {isGameOver && (
           <GameOver
             isPortrait={isPortrait}
