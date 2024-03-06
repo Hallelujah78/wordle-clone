@@ -343,7 +343,9 @@ export default Shade;
 - explosion? when the game is over cause the tiles in the guesses to fly away in random directions and rotate on X and Y randomly
 
 - new game button gradient needs work
-- when you start a new game, the 'guess first word' text should always be shown - not just on first load
-- remove the 'congrats you won' toast
+
 - allow user to hide the dumpster fire gif to see the game board again
+
   - will require displaying 'new game' button elsewhere (middle of keyboard)
+
+- trim silence from the music track

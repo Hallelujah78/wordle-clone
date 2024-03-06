@@ -8,7 +8,7 @@ import styled from "styled-components";
 // data
 
 // types
-import { GuessType } from "../App";
+import { GuessType } from "../models/GuessType.model";
 
 // components
 import Tile from "./Tile";

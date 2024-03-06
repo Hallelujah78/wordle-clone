@@ -105,7 +105,6 @@ const App: React.FC = () => {
           setCurrentGuessIndex((prev) => (prev < 5 ? prev + 1 : prev));
           setIsGameOver(true);
           setIsWin(true);
-          toast("congrats you won!");
         } else if (!valid.includes(guess)) {
           toast("not a valid answer!");
         }

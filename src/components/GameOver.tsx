@@ -33,6 +33,11 @@ const GameOver: React.FC<GameOverProps> = ({
     if (isGameOver && currentAudioRef) {
       currentAudioRef.play();
     }
+    return () => {
+      if (currentAudioRef) {
+        currentAudioRef.pause();
+      }
+    };
   }, [isGameOver]);
 
   return (

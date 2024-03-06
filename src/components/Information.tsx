@@ -2,7 +2,8 @@
 import { useRef, useEffect } from "react";
 
 // styles
-
+import { rotate } from "../styles/animations/rotate";
+import { slowWiggle } from "../styles/animations/slowWiggle";
 // third party
 import styled from "styled-components";
 import { FaTimes } from "react-icons/fa";
@@ -79,13 +80,14 @@ const Information: React.FC<InformationProps> = ({ close, isVisible }) => {
             </a>
           </div>
         </div>
+
         <FaTimes
           className="close"
           onClick={() => {
             close();
           }}
         />
-        <audio ref={audioRef} src={muzak}></audio>
+        <audio loop ref={audioRef} src={muzak}></audio>
       </div>
     </Wrapper>
   );
@@ -112,25 +114,35 @@ const Wrapper = styled.div`
     p {
       margin: 3rem;
       a {
+        background-color: transparent;
         text-decoration: none;
         color: white;
         border-bottom: 1px solid gray;
       }
     }
   }
+
   .close {
+    font-size: calc(1.25rem + 0.390625vw);
     cursor: pointer;
     position: absolute;
     top: 1rem;
     right: 1rem;
-    font-size: calc(1.25rem + 0.390625vw);
+
+    &:hover {
+      animation: ${rotate} 4s infinite linear;
+    }
   }
+
   .social-container {
     .icon-container {
       .icon {
         text-decoration: none;
         color: white;
         cursor: pointer;
+        &:hover {
+          animation: ${slowWiggle} 3s infinite linear;
+        }
       }
       max-width: 80%;
       margin: auto;
