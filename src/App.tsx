@@ -53,6 +53,7 @@ const App: React.FC = () => {
     return window.matchMedia("(orientation: portrait)").matches;
   });
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isGameOverVisible, setIsGameOverVisible] = useState(true);
   const { isVisible, show, close } = useModal();
 
@@ -60,8 +61,9 @@ const App: React.FC = () => {
     setIsPortrait(event.matches);
   };
 
-  const getWindowHeight = () => {
+  const getWindowWidthHeight = () => {
     setWindowHeight(window.innerHeight);
+    setWindowWidth(window.innerWidth);
   };
 
   const updateKeyboard = useCallback(() => {
@@ -208,7 +210,7 @@ const App: React.FC = () => {
     window
       .matchMedia("(orientation: portrait)")
       .addEventListener("change", getDeviceOrientation);
-    window.addEventListener("resize", getWindowHeight);
+    window.addEventListener("resize", getWindowWidthHeight);
 
     return () => {
       document.removeEventListener("keydown", alphaKeypressHandler);
@@ -217,7 +219,7 @@ const App: React.FC = () => {
       window
         .matchMedia("(orientation: portrait)")
         .removeEventListener("change", getDeviceOrientation);
-      window.removeEventListener("resize", getWindowHeight);
+      window.removeEventListener("resize", getWindowWidthHeight);
     };
   }, [alphaKeypressHandler, deleteKeyHandler, enterKeyHandler]);
 
@@ -229,7 +231,7 @@ const App: React.FC = () => {
 
       <Wrapper>
         {isVisible && <Information isVisible={isVisible} close={close} />}
-        <Navbar show={show} />
+        <Navbar show={show} windowWidth={windowWidth} />
         <section>
           <motion.div
             initial={{ rotateX: -180 }}
@@ -251,6 +253,13 @@ const App: React.FC = () => {
           </motion.div>
           <div className="keyboard-container">
             <Keyboard keyboardState={keyboardState} />
+            {isGameOver && !isGameOverVisible && (
+              <Button
+                className="new-game-app"
+                clickHandler={startGame}
+                buttonText="New Game"
+              ></Button>
+            )}
           </div>
         </section>
         {!isGameOver && (
@@ -272,13 +281,6 @@ const App: React.FC = () => {
             isWin={isWin}
             setIsGameOverVisible={setIsGameOverVisible}
           />
-        )}
-        {isGameOver && !isGameOverVisible && (
-          <Button
-            className="new-game"
-            clickHandler={startGame}
-            buttonText="New Game"
-          ></Button>
         )}
 
         {windowHeight < 600 ? <SmallLandscape /> : null}
@@ -337,8 +339,13 @@ const Wrapper = styled.div`
     color: black;
     font-size: calc(1.25rem + 0.390625vw);
   }
-  .new-game {
-    bottom: 25%;
-    left: 50%;
+
+  .keyboard-container {
+    position: relative;
+
+    .new-game-app {
+      top: 44%;
+      left: 50%;
+    }
   }
 `;

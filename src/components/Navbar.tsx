@@ -4,9 +4,10 @@ import { motion } from "framer-motion";
 
 interface NavbarProps {
   show: () => void;
+  windowWidth: number;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ show }) => {
+const Navbar: React.FC<NavbarProps> = ({ show, windowWidth }) => {
   return (
     <Wrapper>
       <div className="nav-center">
@@ -15,9 +16,7 @@ const Navbar: React.FC<NavbarProps> = ({ show }) => {
           animate={{ y: 0 }}
           className="title lilita-one-regular"
         >
-          {window.innerWidth < 460
-            ? "Wurdil DFE"
-            : "Wurdil - Dumpster Fire Edition"}
+          {windowWidth < 460 ? "Wurdil DFE" : "Wurdil - Dumpster Fire Edition"}
         </motion.div>
       </div>
       <IoInformationCircleOutline

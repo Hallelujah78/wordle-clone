@@ -342,10 +342,6 @@ export default Shade;
 
 - explosion? when the game is over cause the tiles in the guesses to fly away in random directions and rotate on X and Y randomly
 
-- allow user to hide the dumpster fire gif to see the game board again
-
-  - will require displaying 'new game' button elsewhere (middle of keyboard)
-
 - trim silence from the music track
 
 - fix this to use event (navbar):

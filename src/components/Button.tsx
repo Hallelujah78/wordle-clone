@@ -37,8 +37,8 @@ const Wrapper = styled.button`
   background-size: 200% 200%;
   transition: 0.5s;
   position: absolute;
-  bottom: 20%;
-  left: 30%;
+  /* bottom: 20%;
+  left: 30%; */
   transform: translateX(-50%);
   font-size: calc(1rem + 0.390625vw);
   padding: 0.4rem 0.7rem;
