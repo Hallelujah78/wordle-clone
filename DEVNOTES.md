@@ -344,10 +344,8 @@ export default Shade;
 
 - trim silence from the music track
 
-- fix this to use event (navbar):
-
-```js
-{
-  window.innerWidth < 460 ? "Wurdil DFE" : "Wurdil - Dumpster Fire Edition";
-}
-```
+- Using site on my old J3 Samsung, I think that not scaling the UI down after about 650px height is probably a bad idea.
+- we'll use a media query and just make everything scale down
+  - supposedly the screen is 1280 x 720 but the content doesn't fit unless you scroll the URL bar out of the way and is cramped even then
+  - NYT wordle looks fine on my old J3
+  - the please rotate your device warning should only occur in portrait mode where the height is less than arbitrary number, say 450, otherwise we scale it down
