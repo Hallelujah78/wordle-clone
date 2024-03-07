@@ -34,7 +34,7 @@ import { initialGuessCompletionState } from "./state/state.ts";
 // models
 import { KeyType } from "./models/KeyType.model.ts";
 import useModal from "./hooks/useModal.ts";
-import NewGameButton from "./components/NewGameButton.tsx";
+import Button from "./components/Button.tsx";
 
 const App: React.FC = () => {
   const [guesses, setGuesses] = useState(initialGuessState);
@@ -274,7 +274,11 @@ const App: React.FC = () => {
           />
         )}
         {isGameOver && !isGameOverVisible && (
-          <NewGameButton startGame={startGame} />
+          <Button
+            className="new-game"
+            clickHandler={startGame}
+            buttonText="New Game"
+          ></Button>
         )}
 
         {windowHeight < 600 ? <SmallLandscape /> : null}
@@ -332,5 +336,9 @@ const Wrapper = styled.div`
     background: white;
     color: black;
     font-size: calc(1.25rem + 0.390625vw);
+  }
+  .new-game {
+    bottom: 25%;
+    left: 50%;
   }
 `;

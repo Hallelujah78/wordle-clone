@@ -11,6 +11,7 @@ import lostGif from "../assets/floating_dumpster.gif";
 // data
 
 // components
+import Button from "./Button";
 
 //models
 interface GameOverProps {
@@ -64,23 +65,19 @@ const GameOver: React.FC<GameOverProps> = ({
           alt="floating dumpster on fire"
         />
       </div>
-      <motion.button
-        initial={{ backgroundPosition: "50% 0%" }}
-        whileHover={{ backgroundPosition: "200% 0%" }}
-        onClick={startGame}
-      >
-        New Game
-      </motion.button>
-      <motion.button
+      <Button
+        clickHandler={startGame}
+        buttonText="New Game"
+        className="new-game"
+      />
+      <Button
         className="close-button"
-        initial={{ backgroundPosition: "50% 0%" }}
-        whileHover={{ backgroundPosition: "200% 0%" }}
-        onClick={() => {
+        clickHandler={() => {
           setIsGameOverVisible(false);
         }}
-      >
-        Close
-      </motion.button>
+        buttonText="Close"
+      />
+
       <audio
         ref={audioRef}
         src={isGameOver && !isWin ? "you_lose.mp3" : "you_win.mp3"}
@@ -99,30 +96,9 @@ const Wrapper = styled.div`
   left: 50vw;
   border-radius: 50%;
 
-  button {
-    background: linear-gradient(
-      100deg,
-      rgba(255, 121, 4, 1) 88%,
-      rgba(218, 213, 201, 1) 90%,
-      rgba(255, 121, 4, 1) 92%
-    );
-    min-width: 7rem;
-    background-size: 200% 200%;
-    transition: 0.5s;
-    position: absolute;
+  .new-game {
     bottom: 20%;
     left: 30%;
-    transform: translateX(-50%);
-    font-size: calc(1rem + 0.390625vw);
-    padding: 0.4rem 0.7rem;
-    border-radius: 1rem;
-    border: none;
-    color: white;
-    cursor: pointer;
-    &:active,
-    &:hover {
-      box-shadow: 0 0 20px #eee;
-    }
   }
   .close-button {
     bottom: 20%;
