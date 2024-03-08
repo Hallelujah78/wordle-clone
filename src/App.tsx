@@ -43,7 +43,7 @@ const App: React.FC = () => {
   const [answer, setAnswer] = useState<string>(() => {
     return answers[getRandomArbitrary(0, answers.length - 1)];
   });
-  const [isGameOver, setIsGameOver] = useState(true);
+  const [isGameOver, setIsGameOver] = useState(false);
   const [keyboardState, setKeyboardState] = useState(initialKeyboardState);
   const [isGuessComplete, setIsGuessComplete] = useState(
     initialGuessCompletionState

@@ -47,7 +47,7 @@ const Keyboard: React.FC<KeyboardProps> = ({ keyboardState }) => {
   };
 
   return (
-    <Wrapper>
+    <Wrapper data-testid="keyboard">
       <div className="row">{renderKeys(0, 9)}</div>
       <div className="row">{renderKeys(10, 18)}</div>
       <div className="row">{renderKeys(19, 28)}</div>

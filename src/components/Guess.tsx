@@ -20,7 +20,7 @@ interface GuessProps {
 
 const Guess: React.FC<GuessProps> = ({ guess, answer, isComplete }) => {
   return (
-    <Wrapper className="guess">
+    <Wrapper data-testid="guess" className="guess">
       {guess.map((letter, index) => {
         let position = "";
         if (!letter) {

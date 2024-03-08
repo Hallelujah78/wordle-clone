@@ -28,6 +28,7 @@ const Key: React.FC<KeyProps> = ({ keyChar, icon, bgColor, delay, xStart }) => {
 
   return (
     <Wrapper
+      data-testid="key"
       as={motion.div}
       whileHover={{ scale: 1.05 }}
       initial={{ opacity: 0, translateY: xStart }}

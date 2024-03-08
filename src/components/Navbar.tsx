@@ -9,7 +9,7 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ show, windowWidth }) => {
   return (
-    <Wrapper>
+    <Wrapper data-testid="nav-bar">
       <div className="nav-center">
         <motion.div
           initial={{ y: -250 }}
@@ -20,6 +20,7 @@ const Navbar: React.FC<NavbarProps> = ({ show, windowWidth }) => {
         </motion.div>
       </div>
       <IoInformationCircleOutline
+        data-testid="info-button"
         onClick={() => {
           show();
         }}
