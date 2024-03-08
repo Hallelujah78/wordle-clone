@@ -66,6 +66,21 @@ const App: React.FC = () => {
     setWindowWidth(window.innerWidth);
   };
 
+  const renderRotateMessage = (
+    height: number,
+    width: number,
+    isPortrait: boolean
+  ) => {
+    if (
+      (isPortrait && height < width) ||
+      (!isPortrait && width >= 400 && height < 400) ||
+      (!isPortrait && width < 400 && height < width)
+    ) {
+      return <SmallLandscape />;
+    }
+    return null;
+  };
+
   const updateKeyboard = useCallback(() => {
     // guesses, answer
     const checkAns = answer.split("");
@@ -284,7 +299,7 @@ const App: React.FC = () => {
           />
         )}
 
-        {windowHeight < 600 ? <SmallLandscape /> : null}
+        {renderRotateMessage(windowHeight, windowWidth, isPortrait)}
       </Wrapper>
       <div>{answer}</div>
     </>
@@ -310,7 +325,7 @@ const Wrapper = styled.div`
 
   .guess-container {
     width: 85vw;
-
+    height: auto;
     display: grid;
     place-content: center;
     margin: auto;

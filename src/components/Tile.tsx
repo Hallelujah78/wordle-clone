@@ -115,4 +115,14 @@ const Wrapper = styled.div`
     line-height: 3.25rem;
     margin: 0.15rem;
   }
+
+  @media (max-height: 650px) {
+    height: 3rem;
+    width: 3rem;
+    .border {
+      height: 3rem;
+      width: 3rem;
+      line-height: 3rem;
+    }
+  }
 `;

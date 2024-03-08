@@ -76,4 +76,9 @@ const Wrapper = styled.div.attrs<KeyDivProps>((props) => ({
   .icon {
     margin: auto;
   }
+  @media (max-height: 650px) {
+    height: 3rem;
+    width: 3rem;
+    line-height: 3rem;
+  }
 `;

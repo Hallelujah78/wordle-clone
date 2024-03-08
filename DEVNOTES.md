@@ -348,6 +348,11 @@ export default Shade;
   - supposedly the screen is 1280 x 720 but the content doesn't fit unless you scroll the URL bar out of the way and is cramped even then
   - NYT wordle looks fine on my old J3
   - the please rotate your device warning should only occur in portrait mode where the height is less than arbitrary number, say 450, otherwise we scale it down
+  - the NYT version doesn't use a fixed arbitrary height
+    - if device is in portrait mode then only display 'please rotate device' when the height becomes less than the width
+    - if device is in landscape mode and the width is 400px or more then show 'please rotate' at 399px height
+    - if device is in landscape mode and the width is less than 400px
+      - show 'please rotate' when height is less than width
 
 - add a mute button to disable sound/music for entire page
 
