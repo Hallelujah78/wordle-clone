@@ -97,7 +97,7 @@ const App: React.FC = () => {
       const guess = guesses[currentGuessIndex].join("");
       const newIsGuessComplete = [...isGuessComplete];
 
-      if (event.key === "Enter" && !isGameOver) {
+      if (event.key === "Enter" && !isGameOver && !isVisible) {
         // is correct answer
 
         if (guess === answer && !isGameOver) {
@@ -139,12 +139,13 @@ const App: React.FC = () => {
       isGameOver,
       updateKeyboard,
       isGuessComplete,
+      isVisible,
     ]
   );
 
   const deleteKeyHandler = useCallback(
     (event: KeyboardEvent) => {
-      if (event.key === "Backspace" && currentLetterIndex > 0) {
+      if (event.key === "Backspace" && currentLetterIndex > 0 && !isVisible) {
         if (guesses[currentGuessIndex][currentLetterIndex].length === 1) {
           setGuesses((prev) => {
             const newState = JSON.parse(JSON.stringify(prev));
@@ -161,12 +162,12 @@ const App: React.FC = () => {
         }
       }
     },
-    [currentGuessIndex, currentLetterIndex, guesses]
+    [currentGuessIndex, currentLetterIndex, guesses, isVisible]
   );
 
   const alphaKeypressHandler = useCallback(
     (event: KeyboardEvent) => {
-      if (isGameOver) {
+      if (isGameOver || isVisible) {
         return;
       }
       const keyRegex = new RegExp(/[a-z]/i);
@@ -189,7 +190,7 @@ const App: React.FC = () => {
         });
       }
     },
-    [currentGuessIndex, currentLetterIndex, guesses, isGameOver]
+    [currentGuessIndex, currentLetterIndex, guesses, isGameOver, isVisible]
   );
 
   const startGame = () => {

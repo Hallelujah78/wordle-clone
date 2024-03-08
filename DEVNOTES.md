@@ -350,3 +350,18 @@ export default Shade;
   - the please rotate your device warning should only occur in portrait mode where the height is less than arbitrary number, say 450, otherwise we scale it down
 
 - add a mute button to disable sound/music for entire page
+
+### Testing
+
+- the elements render
+- the info button makes the Information.tsx visible
+- when the game is in progress we can simulate a key press or click a button and this causes a letter to appear in a tile element
+- there are 5 guess tiles per guess
+- there are 6 Guess components displayed on screen
+- there are 30 guess tiles on screen
+- there are 28 keyboard keys
+
+  - each of the keys does what is expected
+
+- unhappy path
+  - keys 0-9 and all keys that are not A-Z or backspace or enter don't do anything
