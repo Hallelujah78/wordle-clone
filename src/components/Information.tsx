@@ -32,6 +32,13 @@ interface InformationProps {
 const Information: React.FC<InformationProps> = ({ close, isVisible }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
 
+  const closeInfo = () => {
+    if (audioRef.current && !audioRef.current.paused) {
+      audioRef.current.pause();
+    }
+    close();
+  };
+
   useEffect(() => {
     const currentAudioRef = audioRef.current;
 
@@ -40,7 +47,7 @@ const Information: React.FC<InformationProps> = ({ close, isVisible }) => {
     }
   }, [isVisible]);
   return (
-    <Wrapper>
+    <Wrapper data-testid="information">
       <div className="modal">
         <div className="credit-container">
           <h1>CREDITS</h1>
@@ -82,9 +89,11 @@ const Information: React.FC<InformationProps> = ({ close, isVisible }) => {
         </div>
 
         <FaTimes
+          data-testid="close-info"
+          aria-label="button"
           className="close"
           onClick={() => {
-            close();
+            closeInfo();
           }}
         />
         <audio loop ref={audioRef} src={muzak}></audio>

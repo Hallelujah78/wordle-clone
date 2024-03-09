@@ -25,6 +25,7 @@ const Keyboard: React.FC<KeyboardProps> = ({ keyboardState }) => {
         const keyToUpdate = keyboardState.find((keyObj) => {
           return keyObj.key === keyChar.key;
         })!;
+
         const bgColor = keyToUpdate.color;
         const delay = index * 0.05;
         const xStart = index % 2 === 0 ? -50 : 50;

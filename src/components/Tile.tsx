@@ -37,7 +37,7 @@ interface TileProps {
 const Tile: React.FC<TileProps> = ({ letter, position, isComplete, delay }) => {
   return (
     <>
-      <Wrapper data-testid="keyboard">
+      <Wrapper data-testid="tile">
         <motion.div
           variants={variants}
           animate={isComplete ? "completeFront" : "notCompleteFront"}
