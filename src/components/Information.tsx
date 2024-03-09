@@ -87,15 +87,16 @@ const Information: React.FC<InformationProps> = ({ close, isVisible }) => {
             </a>
           </div>
         </div>
-
-        <FaTimes
+        <button
           data-testid="close-info"
-          aria-label="button"
-          className="close"
           onClick={() => {
             closeInfo();
           }}
-        />
+          aria-label="close information"
+          className="close"
+        >
+          <FaTimes />
+        </button>
         <audio loop ref={audioRef} src={muzak}></audio>
       </div>
     </Wrapper>
@@ -132,6 +133,10 @@ const Wrapper = styled.div`
   }
 
   .close {
+    display: grid;
+    color: white;
+    background-color: transparent;
+    border: none;
     font-size: calc(1.25rem + 0.390625vw);
     cursor: pointer;
     position: absolute;
