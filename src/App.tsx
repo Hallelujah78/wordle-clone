@@ -301,7 +301,7 @@ const App: React.FC = () => {
 
         {renderRotateMessage(windowHeight, windowWidth, isPortrait)}
       </Wrapper>
-      <div>{answer}</div>
+      {/* <div>{answer}</div> */}
     </>
   );
 };
@@ -358,10 +358,14 @@ const Wrapper = styled.div`
 
   .keyboard-container {
     position: relative;
-
     .new-game-app {
       top: 44%;
       left: 50%;
+    }
+  }
+  @media (max-height: 650px) {
+    .guess-container {
+      margin-top: 1vh;
     }
   }
 `;

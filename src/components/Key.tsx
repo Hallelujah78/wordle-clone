@@ -72,13 +72,18 @@ const Wrapper = styled.div.attrs<KeyDivProps>((props) => ({
   border-radius: 5px;
 
   cursor: pointer;
-  line-height: 3.5rem;
+  line-height: 3.75rem;
   .icon {
     margin: auto;
   }
   @media (max-height: 650px) {
-    height: 3rem;
-    width: 3rem;
+    height: 9vh;
     line-height: 3rem;
+  }
+  @media (max-height: 460px) {
+    height: 9vh;
+    width: 7vh;
+    line-height: 9vh;
+    font-size: 3vh !important;
   }
 `;

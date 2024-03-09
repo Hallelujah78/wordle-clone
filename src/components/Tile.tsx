@@ -117,12 +117,12 @@ const Wrapper = styled.div`
   }
 
   @media (max-height: 650px) {
-    height: 3rem;
-    width: 3rem;
+    height: 7vh;
+    width: 7vh;
     .border {
-      height: 3rem;
-      width: 3rem;
-      line-height: 3rem;
+      height: 7vh;
+      width: 7vh;
+      line-height: 7vh;
     }
   }
 `;
