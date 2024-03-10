@@ -1,5 +1,5 @@
 // react
-import { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 // styles
 import "react-toastify/dist/ReactToastify.css";
@@ -40,9 +40,7 @@ const App: React.FC = () => {
   const [guesses, setGuesses] = useState(initialGuessState);
   const [currentGuessIndex, setCurrentGuessIndex] = useState(0);
   const [currentLetterIndex, setCurrentLetterIndex] = useState(0);
-  const [answer, setAnswer] = useState<string>(() => {
-    return answers[getRandomArbitrary(0, answers.length - 1)];
-  });
+  const [answer, setAnswer] = useState<string>("");
   const [isGameOver, setIsGameOver] = useState(false);
   const [keyboardState, setKeyboardState] = useState(initialKeyboardState);
   const [isGuessComplete, setIsGuessComplete] = useState(
@@ -239,6 +237,11 @@ const App: React.FC = () => {
     };
   }, [alphaKeypressHandler, deleteKeyHandler, enterKeyHandler]);
 
+  useEffect(() => {
+    const randomVal = getRandomArbitrary(0, answers.length - 1);
+    setAnswer(answers[randomVal]);
+  }, []);
+
   return (
     <>
       <GlobalStyle />
@@ -250,10 +253,11 @@ const App: React.FC = () => {
         <Navbar show={show} windowWidth={windowWidth} />
         <section>
           <motion.div
+            data-testid="answer"
             initial={{ rotateX: -180 }}
             animate={{ rotateX: 0 }}
             transition={{ duration: 1.5 }}
-            className="guess-container"
+            className={`guess-container ${answer}`}
           >
             {guesses.map((guess, index) => {
               const isComplete = isGuessComplete[index];
@@ -301,7 +305,7 @@ const App: React.FC = () => {
 
         {renderRotateMessage(windowHeight, windowWidth, isPortrait)}
       </Wrapper>
-      {/* <div>{answer}</div> */}
+      <div>{answer}</div>
     </>
   );
 };
