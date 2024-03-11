@@ -33,9 +33,14 @@ const Information: React.FC<InformationProps> = ({ close, isVisible }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
 
   const closeInfo = () => {
-    if (audioRef.current && !audioRef.current.paused) {
-      audioRef.current.pause();
+    try {
+      if (audioRef.current && !audioRef.current.paused) {
+        audioRef.current.pause();
+      }
+    } catch (error) {
+      console.log(error);
     }
+
     close();
   };
 

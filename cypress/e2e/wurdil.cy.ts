@@ -32,5 +32,12 @@ describe("Wordle clone app test", () => {
     cy.get("@getTiles").first().should("contain", "");
     cy.get("@getKeys").first().click();
     cy.get("@getTiles").first().should("contain", "Q");
+
+    cy.get("@getTiles").eq(1).should("contain", "");
+    cy.get("@getKeys").eq(6).click();
+    cy.get("@getTiles").eq(1).should("contain", "U");
+
+    // entering an incorrect answer
+    cy.get("@getKeys").eq(19).click();
   });
 });
