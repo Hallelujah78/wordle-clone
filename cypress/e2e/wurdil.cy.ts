@@ -18,14 +18,15 @@ describe("Wordle clone app test", () => {
 
     // information
     cy.get('[data-testid="information"]').should("not.exist");
-    cy.get("@infoButton").click();
+    cy.get("@infoButton").click().wait(50);
     cy.get('[data-testid="information"]').should("exist");
     cy.get('[data-testid="close-info"]').should("exist").click();
 
     // answer
     cy.get('[data-testid="answer"]').then(($answer) => {
       // this will log the answer
-      console.log($answer.attr("class").split(" ")[1]);
+
+      console.log($answer.attr("class")!.split(" ")[1]);
     });
 
     // entering values
@@ -38,6 +39,9 @@ describe("Wordle clone app test", () => {
     cy.get("@getTiles").eq(1).should("contain", "U");
 
     // entering an incorrect answer
+    cy.get('[data-testid="toast-message"]').should("not.exist");
+
     cy.get("@getKeys").eq(19).click();
+    cy.checkToastMessage("invalid", "not a valid answer!");
   });
 });

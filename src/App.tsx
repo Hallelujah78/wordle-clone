@@ -124,7 +124,7 @@ const App: React.FC = () => {
           setIsGameOverVisible(true);
           setIsWin(true);
         } else if (!valid.includes(guess)) {
-          toast("not a valid answer!");
+          toast("not a valid answer!", { toastId: "invalid" });
         }
         // guess must be valid word but incorrect
         else if (currentGuessIndex === 5) {
