@@ -358,15 +358,15 @@ export default Shade;
 
 ### Testing
 
-- the elements render
-- the info button makes the Information.tsx visible
-- when the game is in progress we can simulate a key press or click a button and this causes a letter to appear in a tile element
-- there are 5 guess tiles per guess
-- there are 6 Guess components displayed on screen
-- there are 30 guess tiles on screen
-- there are 28 keyboard keys
+- the elements render - DONE
+- the info button makes the Information.tsx visible - DONE
+- when the game is in progress we can simulate a key press or click a button and this causes a letter to appear in a tile element - DONE
+- there are 5 guess tiles per guess - DONE
+- there are 6 Guess components displayed on screen - DONE
+- there are 30 guess tiles on screen - DONE
+- there are 28 keyboard keys - DONE
 
   - each of the keys does what is expected
 
 - unhappy path
-  - keys 0-9 and all keys that are not A-Z or backspace or enter don't do anything
+  - keys 0-9 and all keys that are not A-Z or backspace or enter don't do anything - since we aren't using an input to capture what we type, we can't use .type() to test this

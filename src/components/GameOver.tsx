@@ -29,22 +29,19 @@ const GameOver: React.FC<GameOverProps> = ({
   isPortrait,
   setIsGameOverVisible,
 }) => {
-  const audioRef = useRef<HTMLAudioElement>(null);
+  const gameOverAudioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
-    const currentAudioRef = audioRef.current;
+    const currentAudioRef = gameOverAudioRef.current;
+
     if (isGameOver && currentAudioRef) {
       currentAudioRef.play();
     }
-    return () => {
-      if (currentAudioRef && !currentAudioRef.paused) {
-        currentAudioRef.pause();
-      }
-    };
   }, [isGameOver]);
 
   return (
     <Wrapper
+      data-testid="game-over"
       style={{
         width: `${isPortrait ? "85vw" : "85vh"}`,
         top: `${isPortrait ? "12vh" : "12vh"}`,
@@ -79,7 +76,7 @@ const GameOver: React.FC<GameOverProps> = ({
       />
 
       <audio
-        ref={audioRef}
+        ref={gameOverAudioRef}
         src={isGameOver && !isWin ? "you_lose.mp3" : "you_win.mp3"}
       ></audio>
     </Wrapper>

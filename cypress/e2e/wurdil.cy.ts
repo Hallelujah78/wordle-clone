@@ -12,17 +12,32 @@ describe("Wordle clone app test", () => {
   });
 
   it("on first load, a number of elements are rendered", () => {
+    // a known valid but incorrect answer
     const wrongAnswer = "aches".split("");
+
     // aliases
     cy.get('[data-testid="info-button"]').as("infoButton");
     cy.get('[data-testid="tile"]').as("getTiles");
     cy.get('[data-testid="key"]').as("getKeys");
+
     // items are rendered
     // navbar, keyboard, tiles, info button
+    cy.get('[data-testid="start-playing-prompt"]').should("exist");
     cy.get('[data-testid="nav-bar"]').should("exist");
     cy.get("@infoButton").should("exist");
     cy.get('[data-testid="keyboard"]').should("exist");
+
+    // there are 6 guesses
     cy.get('[data-testid="guess"]').should("exist").should("have.length", 6);
+
+    // a guess has 5 tiles
+    cy.get('[data-testid="guess"]')
+      .eq(0)
+      .within(($guess) => {
+        cy.get('[data-testid="tile"]').should("have.length", 5);
+      });
+
+    // there are 30 tiles in total
     cy.get("@getTiles").should("exist").should("have.length", 30);
 
     // information
@@ -91,6 +106,7 @@ describe("Wordle clone app test", () => {
     cy.get("@getTiles").eq(4).should("contain", "S");
 
     // lose the game by inputting the incorrect answer 6 times
+    cy.get('[data-testid="game-over"]').should("not.exist");
     let i = 0;
     while (i < 5) {
       wrongAnswer.forEach((item: string) => {
@@ -99,5 +115,22 @@ describe("Wordle clone app test", () => {
       cy.pressKey("Enter", keys);
       i++;
     }
+    cy.get('[data-testid="game-over"]').should("exist");
+    cy.get('[data-testid="answer"]').then(($answer) => {
+      cy.checkAndCloseToastMessage(
+        "lose",
+        `The Answer Was ${$answer.attr("class")!.split(" ")[1].toUpperCase()}`
+      );
+    });
+
+    // start a new game
+    cy.get('[data-testid="new-game"]').should("exist").click();
+    cy.get('[data-testid="start-playing-prompt"]').should("exist");
+
+    cy.get("@getTiles").then(($tiles) => {
+      for (let i = 0; i < $tiles.length; i++) {
+        cy.wrap($tiles).eq(i).should("contain", "");
+      }
+    });
   });
 });

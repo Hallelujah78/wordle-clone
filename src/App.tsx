@@ -135,7 +135,7 @@ const App: React.FC = () => {
           setIsGameOverVisible(true);
           setIsGameOver(true);
           setIsWin(false);
-          toast(`The Answer Was ${answer.toUpperCase()}`);
+          toast(`The Answer Was ${answer.toUpperCase()}`, { toastId: "lose" });
         } else {
           newIsGuessComplete[currentGuessIndex] = true;
           setIsGuessComplete(newIsGuessComplete);
@@ -284,6 +284,7 @@ const App: React.FC = () => {
         </section>
         {!isGameOver && (
           <motion.div
+            data-testid="start-playing-prompt"
             initial={{ x: 0, y: 0, translateX: "-50%" }}
             animate={{ display: "none" }}
             transition={{ delay: 2, duration: 0.8 }}

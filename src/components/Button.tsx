@@ -14,6 +14,7 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   return (
     <Wrapper
+      data-testid={className}
       className={className}
       as={motion.button}
       initial={{ backgroundPosition: "50% 0%" }}
