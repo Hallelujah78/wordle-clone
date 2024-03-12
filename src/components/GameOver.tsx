@@ -37,7 +37,7 @@ const GameOver: React.FC<GameOverProps> = ({
       currentAudioRef.play();
     }
     return () => {
-      if (currentAudioRef) {
+      if (currentAudioRef && !currentAudioRef.paused) {
         currentAudioRef.pause();
       }
     };

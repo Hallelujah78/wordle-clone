@@ -27,7 +27,14 @@ export {};
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 //
 
-Cypress.Commands.add("checkToastMessage", (toastId, message) => {
+Cypress.Commands.add("checkAndCloseToastMessage", (toastId, message) => {
   cy.get(`[id=${toastId}]`).should("contain", message);
-  // ...
+  cy.get(`[id=${toastId}]`).within(() => {
+    cy.get("button").click();
+    cy.root().should("not.exist");
+  });
+});
+
+Cypress.Commands.add("pressKey", (key: string, keys: string[]) => {
+  cy.get('[data-testid="key"]').eq(keys.indexOf(key)).click();
 });

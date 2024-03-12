@@ -1,5 +1,6 @@
 declare namespace Cypress {
   interface Chainable {
-    checkToastMessage(toastId, message): Chainable<void>;
+    checkAndCloseToastMessage(toastId, message): Chainable<void>;
+    pressKey(key, keys): Chainable<void>;
   }
 }
