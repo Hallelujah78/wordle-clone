@@ -4,8 +4,6 @@ const keys = initialKeyboardState.map((item) => {
   return item.key;
 });
 
-console.log(keys.indexOf("a"));
-
 describe("Wordle clone app test", () => {
   beforeEach(() => {
     cy.visit("http://localhost:5173");
@@ -45,13 +43,6 @@ describe("Wordle clone app test", () => {
     cy.get("@infoButton").click().wait(700);
     cy.get('[data-testid="information"]').should("exist");
     cy.get('[data-testid="close-info"]').should("exist").click();
-
-    // answer
-    cy.get('[data-testid="answer"]').then(($answer) => {
-      // this will log the answer
-
-      console.log($answer.attr("class")!.split(" ")[1]);
-    });
 
     // entering values
     cy.get("@getTiles").first().should("contain", "");
@@ -132,5 +123,19 @@ describe("Wordle clone app test", () => {
         cy.wrap($tiles).eq(i).should("contain", "");
       }
     });
+    // input the correct answer - happy path
+    cy.get('[data-testid="game-over"]').should("not.exist");
+    cy.get('[data-testid="answer"]').then(($answer) => {
+      const answer = $answer.attr("class")!.split(" ")[1];
+      answer.split("").forEach((letter) => {
+        cy.pressKey(letter, keys);
+      });
+      cy.pressKey("Enter", keys);
+    });
+    cy.get('[data-testid="game-over"]').should("exist");
+    cy.get('[data-testid="close-button"]').should("exist").click();
+    cy.get('[data-testid="new-game-app"]').should("exist").click();
+    cy.get('[data-testid="start-playing-prompt"]').should("exist");
+    cy.get('[data-testid="game-over"]').should("not.exist");
   });
 });

@@ -365,6 +365,19 @@ export default Shade;
 - there are 6 Guess components displayed on screen - DONE
 - there are 30 guess tiles on screen - DONE
 - there are 28 keyboard keys - DONE
+- when we submit a partial answer - DONE
+  - we see a toast message stating that the answer is invalid
+  - we can delete the letters we have entered
+- when we submit an answer that is not a valid guess (not a word) - DONE
+  - we see a toast message stating the answer is invalid
+  - we can delete our incorrect values
+- when we submit a valid guess that is not the answer - DONE
+  - we can no longer delete the values we have entered
+- when we submit 6 incorrect guesses - DONE
+
+  - the GameOver component is displayed
+  - a toast message is displayed telling us what the answer was
+  - a new game and close button are visible
 
   - each of the keys does what is expected
 

@@ -248,7 +248,7 @@ const App: React.FC = () => {
       <Reset />
       <ToastContainer />
 
-      <Wrapper>
+      <Wrapper data-testid="app-container">
         {isVisible && <Information isVisible={isVisible} close={close} />}
         <Navbar show={show} windowWidth={windowWidth} />
         <section>
