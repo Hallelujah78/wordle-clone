@@ -31,7 +31,7 @@ describe("Wordle clone app test", () => {
     // a guess has 5 tiles
     cy.get('[data-testid="guess"]')
       .eq(0)
-      .within(($guess) => {
+      .within(() => {
         cy.get('[data-testid="tile"]').should("have.length", 5);
       });
 
@@ -40,9 +40,18 @@ describe("Wordle clone app test", () => {
 
     // information
     cy.get('[data-testid="information"]').should("not.exist");
-    cy.get("@infoButton").click().wait(700);
+    cy.get("@infoButton").click();
     cy.get('[data-testid="information"]').should("exist");
     cy.get('[data-testid="close-info"]').should("exist").click();
+
+    // all alphabetic keys work as expected
+    keys.forEach((key) => {
+      cy.pressKey(key, keys);
+      cy.get('[data-testid="tile"]')
+        .eq(0)
+        .should("contain", key.toLocaleUpperCase());
+      cy.pressKey("Backspace", keys);
+    });
 
     // entering values
     cy.get("@getTiles").first().should("contain", "");

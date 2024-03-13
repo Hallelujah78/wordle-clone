@@ -33,23 +33,36 @@ const Information: React.FC<InformationProps> = ({ close, isVisible }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
 
   const closeInfo = () => {
-    try {
-      if (audioRef.current && !audioRef.current.paused) {
-        audioRef.current.pause();
-      }
-    } catch (error) {
-      console.log(error);
-    }
-
     close();
   };
 
   useEffect(() => {
     const currentAudioRef = audioRef.current;
-
-    if (isVisible && currentAudioRef) {
-      currentAudioRef.play();
+    let playPromise: Promise<void>;
+    try {
+      if (isVisible && currentAudioRef) {
+        // play the audio
+        playPromise = currentAudioRef.play();
+      }
+    } catch (error) {
+      console.log(error);
     }
+
+    return () => {
+      if (
+        currentAudioRef &&
+        currentAudioRef.paused &&
+        playPromise !== undefined
+      ) {
+        currentAudioRef?.pause();
+      } else {
+        playPromise.catch((err) => {
+          if (err.name !== "AbortError") {
+            console.log(err.message);
+          }
+        });
+      }
+    };
   }, [isVisible]);
   return (
     <Wrapper data-testid="information">
