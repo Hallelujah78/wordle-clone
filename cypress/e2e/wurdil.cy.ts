@@ -46,11 +46,13 @@ describe("Wordle clone app test", () => {
 
     // all alphabetic keys work as expected
     keys.forEach((key) => {
-      cy.pressKey(key, keys);
-      cy.get('[data-testid="tile"]')
-        .eq(0)
-        .should("contain", key.toLocaleUpperCase());
-      cy.pressKey("Backspace", keys);
+      if (key !== "Enter" && key !== "Backspace") {
+        cy.pressKey(key, keys);
+        cy.get('[data-testid="tile"]')
+          .eq(0)
+          .should("contain", key.toLocaleUpperCase());
+        cy.pressKey("Backspace", keys);
+      }
     });
 
     // entering values

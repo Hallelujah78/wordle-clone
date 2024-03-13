@@ -379,7 +379,7 @@ export default Shade;
   - a toast message is displayed telling us what the answer was
   - a new game and close button are visible
 
-  - each of the keys does what is expected
+  - Each alphabetic key does what is expected - DONE
 
 - unhappy path
   - keys 0-9 and all keys that are not A-Z or backspace or enter don't do anything - since we aren't using an input to capture what we type, we can't use .type() to test this
