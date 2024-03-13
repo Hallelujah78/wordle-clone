@@ -334,13 +334,7 @@ export default Shade;
   - index only incremented on a valid guess
   - execute the animation to flip the tiles when currentGuessIndex is updated
 
-### Next Commit
-
-### Todo
-
-- add cypress testing
-
-- explosion? when the game is over cause the tiles in the guesses to fly away in random directions and rotate on X and Y randomly
+### Scaling the UI/responsiveness - it's not mobile first
 
 - Using site on my old J3 Samsung, I think that not scaling the UI down after about 650px height is probably a bad idea.
 - we'll use a media query and just make everything scale down
@@ -353,6 +347,15 @@ export default Shade;
     - if device is in landscape mode and the width is 400px or more then show 'please rotate' at 399px height
     - if device is in landscape mode and the width is less than 400px
       - show 'please rotate' when height is less than width
+
+### Explosion?
+
+- explosion? when the game is over cause the tiles in the guesses to fly away in random directions and rotate on X and Y randomly
+- we'll do this in a separate small project just to mess with framer-motion
+
+### Next Commit
+
+### Todo
 
 - add a mute button to disable sound/music for entire page
 
@@ -381,5 +384,5 @@ export default Shade;
 
   - Each alphabetic key does what is expected - DONE
 
-- unhappy path
+- unhappy path - DONE
   - keys 0-9 and all keys that are not A-Z or backspace or enter don't do anything - since we aren't using an input to capture what we type, we can't use .type() to test this

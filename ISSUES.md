@@ -37,7 +37,7 @@ const Guess: React.FC<GuessProps> = ({ guess }) => {...}
 - this package doesn't appear to set `box-sizing: border-box;` which is something I would use on all projects
 - I had to set my `nav` to `border-box` manually
 
-### 4 DOMException: play() request is async woes
+### 4 DOMException: play() request interrupted woes
 
 - When the user clicks a button and makes the Information.tsx element visible, music will start to play.
 - when the user closes the Information.tsx element, the music should be paused
@@ -156,3 +156,11 @@ playMedia(videoElement);
 
 - it's worth noting that the `signal` is never used
   - for me that says maybe this isn't a great solution but I'm not willing to go down that ChatGPT rabbithole
+
+### 5 Cypress .type() won't work if you're not typing into an input (or similar element)
+
+- the answer to this is not `cypress-real-events`
+- the potential answer (it may be hacky or bad practice) is just to add a `tabindex={0}` to your App.tsx
+- after this is done, .type() will work
+  - you don't have to get or focus the element that has the tabindex on it
+  - get an element (eg `#root`) and chain `type()` onto that and it works
