@@ -78,6 +78,16 @@ const Information: React.FC<InformationProps> = ({
   return (
     <Wrapper ref={selfRef} data-testid="information">
       <div className="modal">
+        <button
+          data-testid="close-info"
+          onClick={() => {
+            closeInfo();
+          }}
+          aria-label="close information"
+          className="close"
+        >
+          <FaTimes />
+        </button>
         <div className="credit-container">
           <h1>CREDITS</h1>
           <p>
@@ -116,16 +126,7 @@ const Information: React.FC<InformationProps> = ({
             </a>
           </div>
         </div>
-        <button
-          data-testid="close-info"
-          onClick={() => {
-            closeInfo();
-          }}
-          aria-label="close information"
-          className="close"
-        >
-          <FaTimes />
-        </button>
+
         <audio loop ref={audioRef} src={muzak}></audio>
       </div>
     </Wrapper>
