@@ -353,12 +353,22 @@ export default Shade;
 - explosion? when the game is over cause the tiles in the guesses to fly away in random directions and rotate on X and Y randomly
 - we'll do this in a separate small project just to mess with framer-motion
 
+### NYT Wordle accessability and element focus
+
+- when using tab to navigate between elements the ability for the physical enter key to submit an answer is disabled
+- when opening a menu using keyboard navigation/enter, the first element to be focused when the menu is opened is the close menu option
+
 ### Next Commit
 
 ### Todo
 
-- trap focus when modal (Information) - DONE
+- tabbing to the info button/icon and hitting enter to open the Information modal is causing issues with trapping focus inside the modal
+  - hitting enter when you have focus of the info button now causes the modal to open but does not try to submit an answer
+- all Key components are buttons instead of divs - DONE
+- wrap info icon in button to be focussable - DONE
+- use local storage to remember mute state
 - test mute button display and toggle
+- mimic or mirror the NYT Wordle keyboard navigation behaviour
 
 ### Testing
 

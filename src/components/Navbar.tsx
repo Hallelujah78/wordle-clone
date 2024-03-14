@@ -28,20 +28,23 @@ const Navbar: React.FC<NavbarProps> = ({
           {windowWidth < 460 ? "Wurdil DFE" : "Wurdil - Dumpster Fire Edition"}
         </motion.div>
       </div>
-      <IoInformationCircleOutline
-        data-testid="info-button"
-        onClick={() => {
-          show();
-        }}
-        className="info-icon"
-      />
+
       <button
-        className="mute-button"
+        className="button mute-button"
         onClick={() => {
           setIsMuted((prev) => !prev);
         }}
       >
         {isMuted ? <FaVolumeHigh /> : <FaVolumeXmark />}
+      </button>
+      <button
+        onClick={() => {
+          show();
+        }}
+        data-testid="info-button"
+        className="button info-button"
+      >
+        <IoInformationCircleOutline />
       </button>
     </Wrapper>
   );
@@ -66,19 +69,10 @@ const Wrapper = styled.nav`
     height: 3rem;
     font-size: calc(1.25rem + 0.390625vw);
   }
-  .info-icon {
+  .button {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    right: 1rem;
-    font-size: calc(1.75rem + 0.390625vw);
-    cursor: pointer;
-  }
-  .mute-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left: 1rem;
     font-size: calc(1.75rem + 0.390625vw);
     cursor: pointer;
     background: transparent;
@@ -86,5 +80,11 @@ const Wrapper = styled.nav`
     border: none;
     display: grid;
     place-content: center;
+  }
+  .info-button {
+    right: 1rem;
+  }
+  .mute-button {
+    left: 1rem;
   }
 `;

@@ -29,7 +29,7 @@ const Key: React.FC<KeyProps> = ({ keyChar, icon, bgColor, delay, xStart }) => {
   return (
     <Wrapper
       data-testid="key"
-      as={motion.div}
+      as={motion.button}
       whileHover={{ scale: 1.05 }}
       initial={{ opacity: 0, translateY: xStart }}
       animate={{ opacity: 1, translateY: 0 }}
@@ -53,24 +53,25 @@ const Key: React.FC<KeyProps> = ({ keyChar, icon, bgColor, delay, xStart }) => {
 };
 export default Key;
 
-interface KeyDivProps {
+interface KeyButtonProps {
   fontSize: string;
   width: string;
 }
 
-const Wrapper = styled.div.attrs<KeyDivProps>((props) => ({
+const Wrapper = styled.button.attrs<KeyButtonProps>((props) => ({
   style: {
     fontSize: `${props.fontSize}`,
     width: `${props.width}`,
   },
-}))<KeyDivProps>`
+}))<KeyButtonProps>`
   font-weight: 700;
   display: grid;
   background-color: #818384;
   height: 3.75rem;
   margin: 0.225rem 0.225rem;
   border-radius: 5px;
-
+  border: none;
+  color: white;
   cursor: pointer;
   line-height: 3.75rem;
   .icon {

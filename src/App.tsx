@@ -110,10 +110,13 @@ const App: React.FC = () => {
     (event: KeyboardEvent) => {
       const guess = guesses[currentGuessIndex].join("");
       const newIsGuessComplete = [...isGuessComplete];
-
-      if (event.key === "Enter" && !isGameOver && !isVisible) {
-        // is correct answer
-
+      const target = event.target as HTMLElement;
+      if (
+        event.key === "Enter" &&
+        !isGameOver &&
+        !isVisible &&
+        typeof target.onclick !== "function"
+      ) {
         if (guess === answer && !isGameOver) {
           // change keyboard colors
           updateKeyboard();
