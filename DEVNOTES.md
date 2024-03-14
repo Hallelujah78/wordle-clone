@@ -357,7 +357,8 @@ export default Shade;
 
 ### Todo
 
-- add a mute button to disable sound/music for entire page
+- trap focus when modal (Information) - DONE
+- test mute button display and toggle
 
 ### Testing
 

@@ -19,6 +19,9 @@ import { SiNetlify } from "react-icons/si";
 
 // state
 
+// hooks
+import useTrapFocus from "../hooks/useTrapFocus";
+
 // models
 
 // assets
@@ -35,6 +38,8 @@ const Information: React.FC<InformationProps> = ({
   isVisible,
   isMuted,
 }) => {
+  const selfRef = useRef<HTMLDivElement>(null);
+  useTrapFocus(selfRef);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   const closeInfo = () => {
@@ -71,7 +76,7 @@ const Information: React.FC<InformationProps> = ({
     };
   }, [isVisible, isMuted]);
   return (
-    <Wrapper data-testid="information">
+    <Wrapper ref={selfRef} data-testid="information">
       <div className="modal">
         <div className="credit-container">
           <h1>CREDITS</h1>

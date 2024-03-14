@@ -149,7 +149,7 @@ describe("Wordle clone app test", () => {
     cy.get('[data-testid="start-playing-prompt"]').should("exist");
     cy.get('[data-testid="game-over"]').should("not.exist");
   });
-  it.only("most keys produce no output to the UI or do not have an effect on the application", () => {
+  it("most keys produce no output to the UI or do not have an effect on the application", () => {
     // first guess tile contains no input
     cy.get('[data-testid="tile"]').should("exist").eq(0).should("contain", "");
     // type non-alpha keys into app
