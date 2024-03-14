@@ -27,9 +27,14 @@ import muzak from "../assets/audio/late_night_radio.mp3";
 interface InformationProps {
   close: () => void;
   isVisible: boolean;
+  isMuted: boolean;
 }
 
-const Information: React.FC<InformationProps> = ({ close, isVisible }) => {
+const Information: React.FC<InformationProps> = ({
+  close,
+  isVisible,
+  isMuted,
+}) => {
   const audioRef = useRef<HTMLAudioElement>(null);
 
   const closeInfo = () => {
@@ -40,7 +45,7 @@ const Information: React.FC<InformationProps> = ({ close, isVisible }) => {
     const currentAudioRef = audioRef.current;
     let playPromise: Promise<void>;
     try {
-      if (isVisible && currentAudioRef) {
+      if (isVisible && currentAudioRef && !isMuted) {
         // play the audio
         playPromise = currentAudioRef.play();
       }
@@ -52,10 +57,11 @@ const Information: React.FC<InformationProps> = ({ close, isVisible }) => {
       if (
         currentAudioRef &&
         currentAudioRef.paused &&
-        playPromise !== undefined
+        playPromise !== undefined &&
+        !isMuted
       ) {
         currentAudioRef?.pause();
-      } else {
+      } else if (!isMuted) {
         playPromise.catch((err) => {
           if (err.name !== "AbortError") {
             console.log(err.message);
@@ -63,7 +69,7 @@ const Information: React.FC<InformationProps> = ({ close, isVisible }) => {
         });
       }
     };
-  }, [isVisible]);
+  }, [isVisible, isMuted]);
   return (
     <Wrapper data-testid="information">
       <div className="modal">

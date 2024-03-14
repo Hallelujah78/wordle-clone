@@ -20,6 +20,7 @@ interface GameOverProps {
   isWin: boolean;
   isPortrait: boolean;
   setIsGameOverVisible: (isVisible: boolean) => void;
+  isMuted: boolean;
 }
 
 const GameOver: React.FC<GameOverProps> = ({
@@ -28,16 +29,17 @@ const GameOver: React.FC<GameOverProps> = ({
   isWin,
   isPortrait,
   setIsGameOverVisible,
+  isMuted,
 }) => {
   const gameOverAudioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
     const currentAudioRef = gameOverAudioRef.current;
 
-    if (isGameOver && currentAudioRef) {
+    if (isGameOver && currentAudioRef && !isMuted) {
       currentAudioRef.play();
     }
-  }, [isGameOver]);
+  }, [isGameOver, isMuted]);
 
   return (
     <Wrapper

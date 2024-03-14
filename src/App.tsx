@@ -53,6 +53,7 @@ const App: React.FC = () => {
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isGameOverVisible, setIsGameOverVisible] = useState(true);
+  const [isMuted, setIsMuted] = useState(false);
   const { isVisible, show, close } = useModal();
 
   const getDeviceOrientation = (event: MediaQueryListEvent) => {
@@ -249,8 +250,15 @@ const App: React.FC = () => {
       <ToastContainer />
 
       <Wrapper tabIndex={0} data-testid="app-container">
-        {isVisible && <Information isVisible={isVisible} close={close} />}
-        <Navbar show={show} windowWidth={windowWidth} />
+        {isVisible && (
+          <Information isVisible={isVisible} close={close} isMuted={isMuted} />
+        )}
+        <Navbar
+          show={show}
+          windowWidth={windowWidth}
+          isMuted={isMuted}
+          setIsMuted={setIsMuted}
+        />
         <section>
           <motion.div
             data-testid="answer"
@@ -296,6 +304,7 @@ const App: React.FC = () => {
 
         {isGameOver && isGameOverVisible && (
           <GameOver
+            isMuted={isMuted}
             isPortrait={isPortrait}
             startGame={startGame}
             isGameOver={isGameOver}

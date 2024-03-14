@@ -1,13 +1,22 @@
 import { IoInformationCircleOutline } from "react-icons/io5";
 import styled from "styled-components";
 import { motion } from "framer-motion";
+import { FaVolumeHigh } from "react-icons/fa6";
+import { FaVolumeXmark } from "react-icons/fa6";
 
 interface NavbarProps {
   show: () => void;
   windowWidth: number;
+  isMuted: boolean;
+  setIsMuted: (isMuted: boolean | ((prev: boolean) => boolean)) => void;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ show, windowWidth }) => {
+const Navbar: React.FC<NavbarProps> = ({
+  show,
+  windowWidth,
+  isMuted,
+  setIsMuted,
+}) => {
   return (
     <Wrapper data-testid="nav-bar">
       <div className="nav-center">
@@ -26,6 +35,14 @@ const Navbar: React.FC<NavbarProps> = ({ show, windowWidth }) => {
         }}
         className="info-icon"
       />
+      <button
+        className="mute-button"
+        onClick={() => {
+          setIsMuted((prev) => !prev);
+        }}
+      >
+        {isMuted ? <FaVolumeHigh /> : <FaVolumeXmark />}
+      </button>
     </Wrapper>
   );
 };
@@ -56,5 +73,18 @@ const Wrapper = styled.nav`
     right: 1rem;
     font-size: calc(1.75rem + 0.390625vw);
     cursor: pointer;
+  }
+  .mute-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 1rem;
+    font-size: calc(1.75rem + 0.390625vw);
+    cursor: pointer;
+    background: transparent;
+    color: white;
+    border: none;
+    display: grid;
+    place-content: center;
   }
 `;
