@@ -36,6 +36,9 @@ import { KeyType } from "./models/KeyType.model.ts";
 import useModal from "./hooks/useModal.ts";
 import Button from "./components/Button.tsx";
 
+// hooks
+import useLocalStorage from "./hooks/useLocalStorage.ts";
+
 const App: React.FC = () => {
   const [guesses, setGuesses] = useState(initialGuessState);
   const [currentGuessIndex, setCurrentGuessIndex] = useState(0);
@@ -53,7 +56,7 @@ const App: React.FC = () => {
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isGameOverVisible, setIsGameOverVisible] = useState(true);
-  const [isMuted, setIsMuted] = useState(false);
+  const [isMuted, setIsMuted] = useLocalStorage("muted", false);
   const { isVisible, show, close } = useModal();
 
   const getDeviceOrientation = (event: MediaQueryListEvent) => {

@@ -8,7 +8,7 @@ interface NavbarProps {
   show: () => void;
   windowWidth: number;
   isMuted: boolean;
-  setIsMuted: (isMuted: boolean | ((prev: boolean) => boolean)) => void;
+  setIsMuted: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Navbar: React.FC<NavbarProps> = ({
@@ -32,7 +32,7 @@ const Navbar: React.FC<NavbarProps> = ({
       <button
         className="button mute-button"
         onClick={() => {
-          setIsMuted((prev) => !prev);
+          setIsMuted((isMuted) => !isMuted);
         }}
       >
         {isMuted ? <FaVolumeHigh /> : <FaVolumeXmark />}

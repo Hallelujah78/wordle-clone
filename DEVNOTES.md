@@ -362,13 +362,8 @@ export default Shade;
 
 ### Todo
 
-- tabbing to the info button/icon and hitting enter to open the Information modal is causing issues with trapping focus inside the modal
-  - hitting enter when you have focus of the info button now causes the modal to open but does not try to submit an answer
-- all Key components are buttons instead of divs - DONE
-- wrap info icon in button to be focussable - DONE
-- use local storage to remember mute state
+- use local storage to remember mute state - DONE
 - test mute button display and toggle
-- mimic or mirror the NYT Wordle keyboard navigation behaviour
 
 ### Testing
 
