@@ -159,4 +159,16 @@ describe("Wordle clone app test", () => {
     cy.get("#root").type("A");
     cy.get('[data-testid="tile"]').eq(0).should("contain", "A");
   });
+  it.only("audio plays at appropriate time", () => {
+    // mute defaults to off, expect audio plays
+    cy.get('[data-testid="info-button"]').click().wait(300);
+    cy.expectPlayingAudio();
+    cy.get('[data-testid="close-info"]').should("exist").click();
+
+    // mute audio, expect audio doesn't play
+    cy.get('[data-testid="info-audio"]').should("not.exist");
+    cy.get('[data-testid="mute-button"]').should("exist").click();
+    cy.get('[data-testid="info-button"]').click().wait(300);
+    cy.expectNotPlayingAudio();
+  });
 });

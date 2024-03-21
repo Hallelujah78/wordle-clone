@@ -30,6 +30,7 @@ const Navbar: React.FC<NavbarProps> = ({
       </div>
 
       <button
+        data-testid="mute-button"
         className="button mute-button"
         onClick={() => {
           setIsMuted((isMuted) => !isMuted);

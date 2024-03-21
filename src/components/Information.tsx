@@ -127,7 +127,13 @@ const Information: React.FC<InformationProps> = ({
           </div>
         </div>
 
-        <audio loop ref={audioRef} src={muzak}></audio>
+        <audio
+          data-testid="info-audio"
+          loop
+          preload="metadata"
+          ref={audioRef}
+          src={muzak}
+        ></audio>
       </div>
     </Wrapper>
   );

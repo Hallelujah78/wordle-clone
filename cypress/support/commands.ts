@@ -38,3 +38,41 @@ Cypress.Commands.add("checkAndCloseToastMessage", (toastId, message) => {
 Cypress.Commands.add("pressKey", (key: string, keys: string[]) => {
   cy.get('[data-testid="key"]').eq(keys.indexOf(key)).click();
 });
+
+Cypress.Commands.add("expectPlayingAudio", () => {
+  cy.get("audio").then(($els) => {
+    let audible = false;
+    $els.each((_: number, el: HTMLAudioElement) => {
+      console.log(el);
+      console.log(el.duration, el.paused, el.muted, el.currentTime);
+      if (
+        el.duration &&
+        el.duration > 0 &&
+        el.currentTime > 0 &&
+        !el.paused &&
+        !el.muted
+      ) {
+        audible = true;
+      }
+    });
+    expect(audible).to.eq(true);
+  });
+});
+
+Cypress.Commands.add("expectNotPlayingAudio", () => {
+  cy.get("audio").then(($els) => {
+    let audible = false;
+    $els.each((_: number, el: HTMLAudioElement) => {
+      console.log(el);
+      console.log(el.duration, el.paused, el.muted, el.currentTime);
+      if (
+        (el.duration && el.duration > 0 && el.currentTime === 0) ||
+        el.paused ||
+        el.muted
+      ) {
+        audible = false;
+      }
+    });
+    expect(audible).to.eq(false);
+  });
+});
