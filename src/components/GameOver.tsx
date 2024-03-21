@@ -78,6 +78,8 @@ const GameOver: React.FC<GameOverProps> = ({
       />
 
       <audio
+        data-testid="game-over-audio"
+        preload="metadata"
         ref={gameOverAudioRef}
         src={isGameOver && !isWin ? "you_lose.mp3" : "you_win.mp3"}
       ></audio>

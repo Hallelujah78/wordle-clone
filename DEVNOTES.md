@@ -362,7 +362,6 @@ export default Shade;
 
 ### Todo
 
-- use local storage to remember mute state - DONE
 - test mute button display and toggle
 
 ### Testing

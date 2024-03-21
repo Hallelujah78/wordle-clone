@@ -4,14 +4,21 @@ const keys = initialKeyboardState.map((item) => {
   return item.key;
 });
 
+const wrongAnswer = "aches".split("");
+
+// 3 Tests
+// -------- //
+// 1) Rendering components and end to end test of most functionality
+// 2) Typing keys that are not A-Z or Enter or Backspace produces no input to the App
+// 3) The audio plays at appropriately depending on the muted state
+
 describe("Wordle clone app test", () => {
   beforeEach(() => {
     cy.visit("http://localhost:5173");
   });
-
+  // ** Test 1
   it("on first load, a number of elements are rendered", () => {
     // a known valid but incorrect answer
-    const wrongAnswer = "aches".split("");
 
     // aliases
     cy.get('[data-testid="info-button"]').as("infoButton");
@@ -149,6 +156,7 @@ describe("Wordle clone app test", () => {
     cy.get('[data-testid="start-playing-prompt"]').should("exist");
     cy.get('[data-testid="game-over"]').should("not.exist");
   });
+  // Test 2
   it("most keys produce no output to the UI or do not have an effect on the application", () => {
     // first guess tile contains no input
     cy.get('[data-testid="tile"]').should("exist").eq(0).should("contain", "");
@@ -159,16 +167,59 @@ describe("Wordle clone app test", () => {
     cy.get("#root").type("A");
     cy.get('[data-testid="tile"]').eq(0).should("contain", "A");
   });
+  // Test 3
   it.only("audio plays at appropriate time", () => {
     // mute defaults to off, expect audio plays
-    cy.get('[data-testid="info-button"]').click().wait(300);
+    cy.get('[data-testid="info-button"]').click().wait(900);
     cy.expectPlayingAudio();
     cy.get('[data-testid="close-info"]').should("exist").click();
 
     // mute audio, expect audio doesn't play
     cy.get('[data-testid="info-audio"]').should("not.exist");
     cy.get('[data-testid="mute-button"]').should("exist").click();
-    cy.get('[data-testid="info-button"]').click().wait(300);
+    cy.get('[data-testid="info-button"]').click().wait(900);
     cy.expectNotPlayingAudio();
+    cy.get('[data-testid="close-info"]').click();
+
+    // lose game while muted
+    // lose the game by inputting the incorrect answer 6 times
+    cy.get('[data-testid="game-over"]').should("not.exist");
+    let i = 0;
+    while (i <= 5) {
+      wrongAnswer.forEach((item: string) => {
+        cy.pressKey(item, keys);
+      });
+      cy.pressKey("Enter", keys);
+      i++;
+    }
+    cy.get('[data-testid="game-over"]').should("exist");
+    cy.get('[data-testid="answer"]').then(($answer) => {
+      cy.checkAndCloseToastMessage(
+        "lose",
+        `The Answer Was ${$answer.attr("class")!.split(" ")[1].toUpperCase()}`
+      );
+    });
+    cy.expectNotPlayingAudio();
+    // start new game
+    cy.get('[data-testid="new-game"]').click();
+    cy.get('[data-testid="mute-button"]').click(); // app is unmuted
+    // lose the game
+    cy.get('[data-testid="game-over"]').should("not.exist");
+    let j = 0;
+    while (j <= 5) {
+      wrongAnswer.forEach((item: string) => {
+        cy.pressKey(item, keys);
+      });
+      cy.pressKey("Enter", keys);
+      j++;
+    }
+    cy.get('[data-testid="game-over"]').should("exist");
+    cy.get('[data-testid="answer"]').then(($answer) => {
+      cy.checkAndCloseToastMessage(
+        "lose",
+        `The Answer Was ${$answer.attr("class")!.split(" ")[1].toUpperCase()}`
+      );
+    });
+    cy.expectPlayingAudio();
   });
 });
