@@ -37,7 +37,9 @@ const GameOver: React.FC<GameOverProps> = ({
     const currentAudioRef = gameOverAudioRef.current;
 
     if (isGameOver && currentAudioRef && !isMuted) {
-      currentAudioRef.play();
+      currentAudioRef.play().catch(() => {
+        console.log("rejected");
+      });
     }
   }, [isGameOver, isMuted]);
 

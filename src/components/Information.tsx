@@ -67,7 +67,7 @@ const Information: React.FC<InformationProps> = ({
       ) {
         currentAudioRef?.pause();
       } else if (!isMuted) {
-        playPromise.catch((err) => {
+        playPromise.catch((err: Error) => {
           if (err.name !== "AbortError") {
             console.log(err.message);
           }
