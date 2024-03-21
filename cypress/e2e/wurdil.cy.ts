@@ -10,7 +10,7 @@ const wrongAnswer = "aches".split("");
 // -------- //
 // 1) Rendering components and end to end test of most functionality
 // 2) Typing keys that are not A-Z or Enter or Backspace produces no input to the App
-// 3) The audio plays at appropriately depending on the muted state
+// 3) The audio plays appropriately depending on the muted state
 
 describe("Wordle clone app test", () => {
   beforeEach(() => {
