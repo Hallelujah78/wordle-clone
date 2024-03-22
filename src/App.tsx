@@ -38,6 +38,7 @@ import Button from "./components/Button.tsx";
 
 // hooks
 import useLocalStorage from "./hooks/useLocalStorage.ts";
+import { Guesses } from "./models/Guesses.model.ts";
 
 const App: React.FC = () => {
   const [guesses, setGuesses] = useState(initialGuessState);
@@ -86,9 +87,10 @@ const App: React.FC = () => {
   const updateKeyboard = useCallback(() => {
     // guesses, answer
     const checkAns = answer.split("");
+
     const newKeyboardState: KeyType[] = JSON.parse(
       JSON.stringify(keyboardState)
-    );
+    ) as KeyType[];
 
     for (let i = 0; i <= answer.length - 1; i++) {
       const keyToUpdate = newKeyboardState.find((keyObj) => {
@@ -168,13 +170,13 @@ const App: React.FC = () => {
       if (event.key === "Backspace" && currentLetterIndex > 0 && !isVisible) {
         if (guesses[currentGuessIndex][currentLetterIndex].length === 1) {
           setGuesses((prev) => {
-            const newState = JSON.parse(JSON.stringify(prev));
+            const newState = JSON.parse(JSON.stringify(prev)) as Guesses;
             newState[currentGuessIndex][currentLetterIndex] = "";
             return newState;
           });
         } else {
           setGuesses((prev) => {
-            const newState = JSON.parse(JSON.stringify(prev));
+            const newState = JSON.parse(JSON.stringify(prev)) as Guesses;
             newState[currentGuessIndex][currentLetterIndex - 1] = "";
             return newState;
           });
@@ -197,7 +199,7 @@ const App: React.FC = () => {
         keyRegex.test(event.key)
       ) {
         setGuesses((prev) => {
-          const newState = JSON.parse(JSON.stringify(prev));
+          const newState = JSON.parse(JSON.stringify(prev)) as Guesses;
           newState[currentGuessIndex][currentLetterIndex] =
             event.key.toLowerCase();
           return newState;
@@ -321,7 +323,6 @@ const App: React.FC = () => {
 
         {renderRotateMessage(windowHeight, windowWidth, isPortrait)}
       </Wrapper>
-      <div>{answer}</div>
     </>
   );
 };

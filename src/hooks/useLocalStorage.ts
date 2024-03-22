@@ -21,7 +21,7 @@ const useLocalStorage = <T>(
     try {
       const storeItem = localStorage.getItem(key);
       if (storeItem !== null) {
-        return JSON.parse(storeItem);
+        return JSON.parse(storeItem) as T;
       } else {
         localStorage.setItem(key, JSON.stringify(initialValue));
         return initialValue;
