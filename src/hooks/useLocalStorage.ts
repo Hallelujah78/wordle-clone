@@ -17,7 +17,6 @@ const useLocalStorage = <T>(
 
   // initialize
   const initialize = useRef((key: string) => {
-    console.log("calling initialize");
     try {
       const storeItem = localStorage.getItem(key);
       if (storeItem !== null) {
